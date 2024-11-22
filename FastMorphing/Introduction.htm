@@ -1,0 +1,79 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=big5">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>1</title>
+</head>
+
+<body background="0144.gif">
+
+<p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph"><font color="#008000"><span lang="EN-US">&nbsp;</span><b><span lang="EN-US" style="font-size:16.0pt;mso-bidi-font-size:12.0pt">1.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp; 
+</span></span><span lang="EN-US" style="font-size:16.0pt;
+mso-bidi-font-size:12.0pt">Introduction<o:p>
+</o:p> 
+</span></b></font></p> 
+<p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph; 
+line-height:150%"><span lang="EN-US">Three-dimensional metamorphosis (or  
+morphing) is a widespread technique in entertainment and animation to generate a  
+smooth transition from a source object to a target object. In this paper, we  
+focus on morphs between two genus 0 3D polyhedra. In the literature, most  
+polyhedral morphing techniques could consist of two main steps: one is to find  
+one-to-one correspondence between two polyhedral meshes and the other is to  
+define interpolation paths for each pair of corresponding vertices on the meshes  
+to calculate the in-between shapes. A lot of previous work has been published in  
+the area of 3D polyhedral morphing. There are two excellent surveys of 3D  
+morphing to be referred to in [1,2].</span></p> 
+<p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph; 
+line-height:150%"><span lang="EN-US">&nbsp;In this paper, our design goal is to  
+provide animators the easy control of morphs and the fast creation of morphs.  
+There are two-level controls for animators to intuitively establish  
+correspondence. First, animators specify scatter features to decompose the  
+models into the corresponding patches, i.e., called morphing patches in this  
+paper. This higher-level control provides the approximate correspondence between  
+two models. If the finer correspondence is required on each patch, the  
+lower-level control allows the animators to specify extra feature points on each  
+patch. With the help of the lower-level control, animators only need to identify  
+few corresponding morphing patches. Therefore, in contrast to other methods such  
+as [3], manual interaction times can be reduced. Afterwards, there are three  
+techniques designed to automatically and efficiently establish a complete  
+one-to-one correspondence between models. In contrast to most other approaches,  
+the proposed methods are very fast and can be computed within a few seconds.  
+These proposed schemes are the main contributions of this paper and are listed  
+below:</span></p> 
+<p class="MsoNormal" style="margin-left:24.0pt;text-align:justify;text-justify: 
+inter-ideograph;text-indent:-24.0pt;line-height:150%;mso-list:l6 level1 lfo10; 
+tab-stops:list 24.0pt"><span lang="EN-US" style="font-family: 
+Wingdings">l<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+</span></span><span lang="EN-US">An efficient relaxation method is proposed to  
+embed (i.e., map) 3D morphing patches to 2D regular polygons. In contrast to  
+other relaxation methods such as in [4], our method is computed within a few  
+seconds (usually less than 1 second for our examples).</span></p> 
+<p class="MsoNormal" style="margin-left:24.0pt;text-align:justify;text-justify: 
+inter-ideograph;text-indent:-24.0pt;line-height:150%;mso-list:l6 level1 lfo10; 
+tab-stops:list 24.0pt"><span lang="EN-US" style="font-family: 
+Wingdings">l<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+</span></span><span lang="EN-US">A foldover-free warping method is used to align  
+corresponding feature vertices between two embeddings of morphing patches. This  
+is a very essential part in the lower-level control of correspondence.</span></p> 
+<p class="MsoNormal" style="margin-left:24.0pt;text-align:justify;text-justify: 
+inter-ideograph;text-indent:-24.0pt;line-height:150%;mso-list:l6 level1 lfo10; 
+tab-stops:list 24.0pt"><span lang="EN-US" style="font-family: 
+Wingdings">l<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+</span></span><span lang="EN-US">An efficient but simple merging method is  
+presented to create a merged embedding that contains the faces, edges and  
+vertices of two given embeddings. The <b>SMCC</b> (structures of minimal contour  
+coverage) is designed to speed up the merging process and the merging is always  
+computed in less a second. In addition, there are several lookup tables are used  
+for easy and efficient implementation.</span></p> 
+<p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph; 
+line-height:150%"><span lang="EN-US">The rest of our paper is organized as  
+follows. Section 2 reviews the related work of 3D polyhedral metamorphosis. The  
+proposed techniques are presented in Section 3. We experimentally evaluate the  
+proposed schemes and experimentally compare with other wok in Section 4.  
+Finally, the conclusion and future work are given in Section 5.</span></p> 
+ 
+</body> 
+ 
+</html> 

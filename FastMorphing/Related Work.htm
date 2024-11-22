@@ -1,0 +1,57 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=big5">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>1</title>
+</head>
+
+<body background="0144.gif">
+
+<p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:150%"><font color="#008000"><span lang="EN-US">&nbsp;</span></font><b><font color="#008000"><span lang="EN-US" style="font-size:16.0pt;mso-bidi-font-size:12.0pt">1.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp; 
+</span></span></font><span lang="EN-US" style="font-size:16.0pt;
+mso-bidi-font-size:12.0pt"><font color="#008000">Related Work<o:p> 
+ </font>
+</o:p>
+</span></b></p>
+<p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:150%"><span lang="EN-US">Lazarus and Verroust [1] give an excellent 
+survey of previous work on the 3D morphing problem. There are two major classes 
+of 3D morphing technique: volume based approach and surface based approach. In 
+this paper, we focus on surface based approach. For more related work of 
+volume-based approach, please refer to [1]. The surface based approach works on 
+boundary representations such as polyhedral meshes or patch complexes. Methods 
+for this approach usually create an interpolation mesh, which is a common 
+embedding of both source and target meshes. This interpolation mesh is then 
+geometrically deformed to create morphed shapes. This common embedding solves 
+the correspondence problem, associating the vertices or triangles between the 
+source mesh and target mesh. This is a key issue of surface based approach and 
+will be the focus of our paper.</span></p>
+<p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:150%"><span lang="EN-US">&nbsp;A lot of work has been published in 
+the correspondence issue. Kent et al [6] introduce parameterizations for solving 
+the correspondence problem. Their approach projected star-shaped objects onto 
+spheres to accomplish parameterization. Similarly, Alexa [4] employs a 
+relaxation method to embed polyhedral shapes on the spheres. Lazarus and 
+Verroust [7] introduce skeletons for cylinder-like objects. This approach is an 
+extension of [6] for objects that are star-shaped around an axis. Parent [8] 
+presents a recursive algorithm that automatically finds a correspondence between 
+the surfaces of two objects of equivalent topologies. Decarlo et al. [9] present 
+a method to transform objects with different topologies. The user must identify 
+a sparse control mesh on each surface of objects and this control mesh specifies 
+how to transform one surface to another. Therefore, it will become very 
+complicated and difficult to transform complex shapes. Kanai et al. [10] and 
+Zockler et al. [5] utilize mesh parameterization technique such as harmonic 
+mapping to embed a region of a mesh to a 2D convex polygon. Gregory et al. [3] 
+apply a user-specified control mesh to decompose the surface into a large number 
+of disk-like patches. However, this task is very slow and tedious. Lee et al. 
+[11] employ the MAPS algorithm [12] to parameterize input meshes over simple 
+base domains and an additional harmonic map bringing the latter into the 
+correspondence. Their approach can have fold-over problem and user interaction 
+is required to manually fix this problem.</span></p>
+
+</body>
+
+</html>

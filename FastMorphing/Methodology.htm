@@ -1,0 +1,3081 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=big5">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>3</title>
+</head>
+
+<body background="0144.gif">
+
+<h2 style="text-align:justify;text-justify:inter-ideograph;line-height:150%"><span lang="EN-US" style="font-size:16.0pt;mso-bidi-font-size:12.0pt"><font color="#008000">3.   
+Methodology<o:p>  
+</o:p>  
+</font>  
+</span></h2>  
+<p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;  
+line-height:150%"><b><span lang="EN-US" style="font-size:14.0pt;mso-bidi-font-size:  
+12.0pt"><font color="#008000">3.1 Overview<o:p>  
+ </font>
+</o:p>
+</span></b></p>
+<p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;
+line-height:150%"><span lang="EN-US">In this paper, the inputs are genus 0 3D 
+polyhedral models that consist of 1-ring structure triangular meshes. Our work 
+is closest in spirit to Gregory et al.’s [3] work and to Alexa’s work [4]. 
+Our overall system structure is similar to their theme. However, we present 
+novel techniques in our design. The main procedures of our design are listed 
+below:</span></p>
+<p class="MsoNormal" style="margin-left:24.0pt;text-align:justify;text-justify:
+inter-ideograph;text-indent:-24.0pt;line-height:150%;mso-list:l17 level1 lfo11;
+tab-stops:list 24.0pt"><span lang="EN-US" style="font-family:
+Wingdings">l<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    
+</span></span><b><span lang="EN-US">Selection of Vertex Pairs and Decomposition    
+into Morphing Patches: </span></b><span lang="EN-US">For given two 3D polyhedral    
+models, animators select corresponding vertices on each polyhedron to define    
+correspondences of regions and points in both models. The algorithm    
+automatically partitions the surface of each polyhedron into the same number of    
+morphing patches by computing a shortest path between the selected vertices. The    
+above is corresponding to the high-level control of morphs in our design.</span></p>   
+<p class="MsoBodyTextIndent" style="text-align:justify;text-justify:inter-ideograph;   
+text-indent:-24.0pt;line-height:150%;mso-list:l17 level1 lfo11;tab-stops:list 24.0pt"><span lang="EN-US" style="font-family:Wingdings">l<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    
+</span></span><b><span lang="EN-US">3D-to-2D Embedding: </span></b><span lang="EN-US">Each    
+3D morphing patch is mapped onto a 2D regular polygon by the proposed relaxation    
+method.</span></p>   
+<p class="MsoNormal" style="margin-left:24.0pt;text-align:justify;text-justify:   
+inter-ideograph;text-indent:-24.0pt;line-height:150%;mso-list:l17 level1 lfo11;   
+tab-stops:list 24.0pt"><span lang="EN-US" style="font-family:   
+Wingdings">l<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    
+</span></span><b><span lang="EN-US">Aligning Feature Vertices: </span></b><span lang="EN-US">The    
+interior vertices in the regular 2D polygons are matched by using a foldover-free    
+warping technique. Users can specify extra feature vertices to have a better    
+control over correspondence. This design corresponds to the lower-level control    
+of morphs.</span></p>   
+<p class="MsoNormal" style="margin-left:24.0pt;text-align:justify;text-justify:   
+inter-ideograph;text-indent:-24.0pt;line-height:150%;mso-list:l17 level1 lfo11;   
+tab-stops:list 24.0pt"><span lang="EN-US" style="font-family:   
+Wingdings">l<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    
+</span></span><b><span lang="EN-US">Merging, Re-meshing and Interpolation: </span></b><span lang="EN-US">The    
+algorithm merges the topological connectivity of morphing patches in the regular    
+2D polygon. Inserting additional edges retriangulates the regions in the merged    
+regular 2D polygon. This step reconstructs the facets for the new morphing    
+patch, i.e., a common interpolation mesh. Finally, we compute exact    
+interpolation across the common interpolation meshes.</span></p>   
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify;   
+text-justify:inter-ideograph;line-height:150%"><b><span lang="EN-US" style="font-size:14.0pt;mso-bidi-font-size:12.0pt"><font color="#008000">3.2    
+Specifying Corresponding Morphing Patches<o:p>   
+ </font> 
+</o:p> 
+</span></b></p> 
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify; 
+text-justify:inter-ideograph;line-height:150%;tab-stops:45.0pt"><span lang="EN-US">Given    
+two polyhedra <i>A</i> and <i>B</i>, animators interactively design    
+correspondence by partitioning each polyhedron into the same number of regions    
+called morphing patches. Each pair of morphing patches is denoted as (<span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shapetype id="_x0000_t75"   
+ coordsize="21600,21600" o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe"   
+ filled="f" stroked="f">   
+ <v:stroke joinstyle="miter"/>   
+ <v:formulas>   
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>   
+  <v:f eqn="sum @0 1 0"/>   
+  <v:f eqn="sum 0 0 @1"/>   
+  <v:f eqn="prod @2 1 2"/>   
+  <v:f eqn="prod @3 21600 pixelWidth"/>   
+  <v:f eqn="prod @3 21600 pixelHeight"/>   
+  <v:f eqn="sum @0 0 1"/>   
+  <v:f eqn="prod @6 1 2"/>   
+  <v:f eqn="prod @7 21600 pixelWidth"/>   
+  <v:f eqn="sum @8 21600 0"/>   
+  <v:f eqn="prod @7 21600 pixelHeight"/>   
+  <v:f eqn="sum @10 21600 0"/>   
+ </v:formulas>   
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>   
+ <o:lock v:ext="edit" aspectratio="t"/>   
+</v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:18pt;   
+ height:18.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image001.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method1.gif" v:shapes="_x0000_i1025" width="24" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1025"   
+  DrawAspect="Content" ObjectID="_1064042896">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+,<span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1026" type="#_x0000_t75" style='width:18pt;height:18.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image003.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method2.gif" v:shapes="_x0000_i1026" width="24" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1026"   
+  DrawAspect="Content" ObjectID="_1064042897">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+), where <span style="mso-text-raise:-3.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1027" type="#_x0000_t75" style='width:6.75pt;height:12.75pt'   
+ o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image005.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method3.gif" v:shapes="_x0000_i1027" width="9" height="17"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1027"   
+  DrawAspect="Content" ObjectID="_1064042898">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>is the corresponding patch index.    
+To define each pair of (<span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1028" type="#_x0000_t75" style='width:18pt;height:18.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image001.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method4.gif" v:shapes="_x0000_i1028" width="24" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1028"   
+  DrawAspect="Content" ObjectID="_1064042899">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+,<span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1029" type="#_x0000_t75" style='width:18pt;height:18.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image003.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method5.gif" v:shapes="_x0000_i1029" width="24" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1029"   
+  DrawAspect="Content" ObjectID="_1064042900">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+), animators must specify the same number of vertices (i.e., called <b><i>extreme    
+vertices</i></b> [3]), too. These selected vertices also form corresponding    
+point pairs in both models. The boundary of a morphing patch consists of several    
+consecutive chains. Each chain is obtained by computing a shortest path between    
+two consecutive selected vertices. Animators can partition two input polyhedra    
+into arbitrary number of morphing patches, but each patch cannot cross or    
+overlap the other patches. Once the models are partitioned into several    
+corresponding morphing patches, the next is to compute the correspondence of    
+interior vertices of (<span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1030" type="#_x0000_t75" style='width:18pt;height:18.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image001.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method6.gif" v:shapes="_x0000_i1030" width="24" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1030"   
+  DrawAspect="Content" ObjectID="_1064042901">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+,<span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1031" type="#_x0000_t75" style='width:18pt;height:18.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image003.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method7.gif" v:shapes="_x0000_i1031" width="24" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1031"   
+  DrawAspect="Content" ObjectID="_1064042902">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+).</span></p>   
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify;   
+text-justify:inter-ideograph;line-height:150%"><b><span lang="EN-US" style="font-size:14.0pt;mso-bidi-font-size:12.0pt"><font color="#008000">3.3    
+Embedding 3D Morphing Patches on Regular 2D Polygons<o:p>   
+</o:p>  
+</font>  
+</span></b></p>  
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify;  
+text-justify:inter-ideograph;line-height:150%"><span lang="EN-US">In the   
+following, we will first describe the basic idea of the proposed relaxation   
+method to compute 3D-to-2D embeddings. This initial approach requires several   
+iterations to be finished. It can be computationally expensive. Next, we propose   
+to solve the linear system of our relaxation method. In this manner, the   
+embedding can be computed very fast.</span><span lang="EN-US"><o:p>  
+</o:p>  
+</span></p>  
+<p class="MsoBodyTextIndent" style="text-align: justify; text-justify: inter-ideograph; line-height: 200%; margin-left: 0cm"><span lang="EN-US">Given a pair    
+of 3D morphing patches (<span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shapetype   
+ id="_x0000_t75" coordsize="21600,21600" o:spt="75" o:preferrelative="t"   
+ path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f">   
+ <v:stroke joinstyle="miter"/>   
+ <v:formulas>   
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>   
+  <v:f eqn="sum @0 1 0"/>   
+  <v:f eqn="sum 0 0 @1"/>   
+  <v:f eqn="prod @2 1 2"/>   
+  <v:f eqn="prod @3 21600 pixelWidth"/>   
+  <v:f eqn="prod @3 21600 pixelHeight"/>   
+  <v:f eqn="sum @0 0 1"/>   
+  <v:f eqn="prod @6 1 2"/>   
+  <v:f eqn="prod @7 21600 pixelWidth"/>   
+  <v:f eqn="sum @8 21600 0"/>   
+  <v:f eqn="prod @7 21600 pixelHeight"/>   
+  <v:f eqn="sum @10 21600 0"/>   
+ </v:formulas>   
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>   
+ <o:lock v:ext="edit" aspectratio="t"/>   
+</v:shapetype><v:shape id="_x0000_i1081" type="#_x0000_t75" style='width:18pt;   
+ height:18.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image001.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method8.gif" v:shapes="_x0000_i1081" width="24" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1081"   
+  DrawAspect="Content" ObjectID="_1064042920">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+,<span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1082" type="#_x0000_t75" style='width:18pt;height:18.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image003.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method9.gif" v:shapes="_x0000_i1082" width="24" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1082"   
+  DrawAspect="Content" ObjectID="_1064042921">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+) defined by <i>n</i><sub> </sub>extreme vertices, we embed each on an <i>n-</i>side    
+regular 2D polygon called <i>D<sub>i</sub></i> (<span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1083"   
+ type="#_x0000_t75" style='width:18.75pt;height:18.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image005.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method10.gif" v:shapes="_x0000_i1083" width="25" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1083"   
+  DrawAspect="Content" ObjectID="_1064042922">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+,<span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1084" type="#_x0000_t75" style='width:18.75pt;height:18.75pt'   
+ o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image007.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method11.gif" v:shapes="_x0000_i1084" width="25" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1084"   
+  DrawAspect="Content" ObjectID="_1064042923">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+) by a relaxation method. Each <i>n</i>-regular polygon is inscribed in the unit    
+circle and its center is at (0, 0). The relaxation algorithm consists of three    
+steps. First, the extreme vertices of the morphing patches are mapped to the    
+vertices of <i>D<sub>i</sub></i>. Next, each chain of the morphing patch is    
+mapped to an edge of <i>D<sub>i</sub></i>. We need to find the 2D coordinates of    
+non-extreme vertices along each chain. The 2D coordinates of these non-extreme    
+vertices are interpolated based on the arc length of the chain. Third, we    
+compute a 2D mapping for the interior vertices of <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1075"   
+ type="#_x0000_t75" style='width:18pt;height:18.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image001.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method12.gif" v:shapes="_x0000_i1075" width="24" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1075"   
+  DrawAspect="Content" ObjectID="_1064042924">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>and<span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1076"   
+ type="#_x0000_t75" style='width:18pt;height:18.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image003.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method13.gif" v:shapes="_x0000_i1076" width="24" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1076"   
+  DrawAspect="Content" ObjectID="_1064042925">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+ by initially mapping them to the center position (0,0). Then, these vertices    
+are moved step by step by the following relaxation equation and this process    
+will continue until all the interior points are stable, i.e., not moved.</span></p>   
+<p class="MsoBodyTextIndent" align="center" style="line-height: 150%; margin-left: 0cm"><span lang="EN-US" style="mso-fareast-font-family:標楷體"><span style="mso-text-raise:-32.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1077"   
+ type="#_x0000_t75" style='width:180pt;height:70.5pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image011.wmz"   
+  o:title=""/>   
+</v:shape><![endif]--><!--[if gte vml 1]><v:shapetype id="_x0000_t75"   
+ coordsize="21600,21600" o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe"   
+ filled="f" stroked="f">   
+ <v:stroke joinstyle="miter"/>   
+ <v:formulas>   
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>   
+  <v:f eqn="sum @0 1 0"/>   
+  <v:f eqn="sum 0 0 @1"/>   
+  <v:f eqn="prod @2 1 2"/>   
+  <v:f eqn="prod @3 21600 pixelWidth"/>   
+  <v:f eqn="prod @3 21600 pixelHeight"/>   
+  <v:f eqn="sum @0 0 1"/>   
+  <v:f eqn="prod @6 1 2"/>   
+  <v:f eqn="prod @7 21600 pixelWidth"/>   
+  <v:f eqn="sum @8 21600 0"/>   
+  <v:f eqn="prod @7 21600 pixelHeight"/>   
+  <v:f eqn="sum @10 21600 0"/>   
+ </v:formulas>   
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>   
+ <o:lock v:ext="edit" aspectratio="t"/>   
+</v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:180pt;   
+ height:70.5pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image001.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method100.gif" v:shapes="_x0000_i1025" width="240" height="94"><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1025"  
+  DrawAspect="Content" ObjectID="_1064043952">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
+</span>(1).</span></span></p>  
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify;  
+text-justify:inter-ideograph;line-height:150%"><span lang="EN-US">In equation   
+(1), there are several parameters defined as follows:</span></p>  
+<p class="MsoBodyTextIndent" style="text-align:justify;text-justify:inter-ideograph;  
+text-indent:-24.0pt;line-height:150%;mso-list:l10 level1 lfo13;tab-stops:list 24.0pt"><span lang="EN-US" style="font-family:Wingdings">l<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
+</span></span><span lang="EN-US"><span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape  
+ id="_x0000_i1085" type="#_x0000_t75" style='width:14.25pt;height:18pt' o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image013.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method15.gif" v:shapes="_x0000_i1085" width="19" height="24"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1085"  
+  DrawAspect="Content" ObjectID="_1064042927">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+<span style="mso-spacerun: yes">&nbsp;</span>is an interior vertex and its    
+initial position is at (0,0). It represents the 2D mapping of a 3D vertex <i>P<sub>i    
+</sub></i>on a morphing patch.</span></p>   
+<p class="MsoBodyTextIndent" style="text-align:justify;text-justify:inter-ideograph;   
+text-indent:-24.0pt;line-height:150%;mso-list:l10 level1 lfo13;tab-stops:list 24.0pt"><span lang="EN-US" style="font-family:Wingdings">l<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    
+</span></span><span lang="EN-US"><span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1086" type="#_x0000_t75" style='width:18.75pt;height:18.75pt'   
+ o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image015.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method16.gif" v:shapes="_x0000_i1086" width="25" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1086"   
+  DrawAspect="Content" ObjectID="_1064042928">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>is a new position of <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1087"   
+ type="#_x0000_t75" style='width:14.25pt;height:18pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image013.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method17.gif" v:shapes="_x0000_i1087" width="19" height="24"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1087"   
+  DrawAspect="Content" ObjectID="_1064042929">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>according to equation (1).</span></p>   
+<p class="MsoBodyTextIndent" style="text-align:justify;text-justify:inter-ideograph;   
+text-indent:-24.0pt;line-height:150%;mso-list:l10 level1 lfo13;tab-stops:list 24.0pt"><span lang="EN-US" style="font-family:Wingdings">l<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    
+</span></span><span lang="EN-US" style="mso-fareast-font-family:標楷體"><span style="mso-text-raise:-7.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1088"   
+ type="#_x0000_t75" style='width:15.75pt;height:18.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image018.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method18.gif" v:shapes="_x0000_i1088" width="21" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1088"   
+  DrawAspect="Content" ObjectID="_1064042930">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>is a 2D mapping of <i>P<sub>j</sub></i>.    
+<i>P<sub>j</sub> </i>is one of <i>P<sub>i</sub></i>’s neighbors a</span><span lang="EN-US">nd    
+</span><span lang="EN-US" style="mso-fareast-font-family:標楷體"><span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1089"   
+ type="#_x0000_t75" style='width:12pt;height:18pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image020.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method19.gif" v:shapes="_x0000_i1089" width="16" height="24"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1089"   
+  DrawAspect="Content" ObjectID="_1064042931">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>is the number of neighbors of </span><i><span lang="EN-US">P<sub>i</sub></span></i><span lang="EN-US">    
+in 3D.</span></p>   
+<p class="MsoBodyTextIndent" style="text-align:justify;text-justify:inter-ideograph;   
+text-indent:-24.0pt;line-height:150%;mso-list:l10 level1 lfo13;tab-stops:list 24.0pt"><span lang="EN-US" style="font-family:Wingdings">l<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    
+</span></span><span lang="EN-US"><span style="mso-text-raise:-7.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1090" type="#_x0000_t75" style='width:18pt;height:21.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image022.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method20.gif" v:shapes="_x0000_i1090" width="24" height="29"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1090"   
+  DrawAspect="Content" ObjectID="_1064042932">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>is a pulling weight for </span><span lang="EN-US" style="mso-fareast-font-family:標楷體"><span style="mso-text-raise:-7.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1091"   
+ type="#_x0000_t75" style='width:15.75pt;height:18.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image018.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method21.gif" v:shapes="_x0000_i1091" width="21" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1091"   
+  DrawAspect="Content" ObjectID="_1064042933">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+, and</span><span lang="EN-US"><span style="mso-text-raise:   
+-3.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1092" type="#_x0000_t75"   
+ style='width:12.75pt;height:15.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image025.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method22.gif" v:shapes="_x0000_i1092" width="17" height="21"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1092"   
+  DrawAspect="Content" ObjectID="_1064042934">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+controls the moving speed and its value is between 0 and 1.</span></p>   
+<p class="MsoBodyTextIndent" style="text-align: justify; text-justify: inter-ideograph; line-height: 200%; margin-left: 0cm"><span lang="EN-US">We attempt to    
+compute a good embedding which preserves the aspect ratio of the original    
+triangle versus the mapped triangle and does not cause too much distortion To    
+determine<span style="mso-text-raise:-7.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1093"   
+ type="#_x0000_t75" style='width:18pt;height:21.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image022.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method23.gif" v:shapes="_x0000_i1093" width="24" height="29"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1093"   
+  DrawAspect="Content" ObjectID="_1064042935">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+, our idea is similar to Kanai et al.’s [10] weight formula used in their    
+harmonic mapping. However, we use a different and a simpler formula. For    
+example, in Figure 1, <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1094" type="#_x0000_t75" style='width:14.25pt;height:18pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image028.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method24.gif" v:shapes="_x0000_i1094" width="19" height="24"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1094"   
+  DrawAspect="Content" ObjectID="_1064042936">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>is labeled 0 and the weight of a </span><span lang="EN-US" style="mso-fareast-font-family:標楷體"><span style="mso-text-raise:-7.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1095"   
+ type="#_x0000_t75" style='width:15.75pt;height:18.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image030.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method25.gif" v:shapes="_x0000_i1095" width="21" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1095"   
+  DrawAspect="Content" ObjectID="_1064042937">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>labeled by 2 is computed by the    
+following equation:<o:p>   
+&nbsp;  
+</span></p>  
+<p class="MsoBodyTextIndent" style="text-justify: inter-ideograph; line-height: 150%; margin-left: 0cm" align="center"><span lang="EN-US" style="mso-fareast-font-family:  
+標楷體"><span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shapetype id="_x0000_t75"  
+ coordsize="21600,21600" o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe"  
+ filled="f" stroked="f">  
+ <v:stroke joinstyle="miter"/>  
+ <v:formulas>  
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>  
+  <v:f eqn="sum @0 1 0"/>  
+  <v:f eqn="sum 0 0 @1"/>  
+  <v:f eqn="prod @2 1 2"/>  
+  <v:f eqn="prod @3 21600 pixelWidth"/>  
+  <v:f eqn="prod @3 21600 pixelHeight"/>  
+  <v:f eqn="sum @0 0 1"/>  
+  <v:f eqn="prod @6 1 2"/>  
+  <v:f eqn="prod @7 21600 pixelWidth"/>  
+  <v:f eqn="sum @8 21600 0"/>  
+  <v:f eqn="prod @7 21600 pixelHeight"/>  
+  <v:f eqn="sum @10 21600 0"/>  
+ </v:formulas>  
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>  
+ <o:lock v:ext="edit" aspectratio="t"/>  
+</v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:113.25pt;  
+ height:21.75pt' o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image001.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method101.gif" v:shapes="_x0000_i1025" width="151" height="29"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1025"  
+  DrawAspect="Content" ObjectID="_1064043985">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+<span style="mso-spacerun:  
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
+</span>(2)<o:p>  
+</o:p>  
+</span><span lang="EN-US" style="mso-fareast-font-family:標楷體"></o:p>  
+</span></p>  
+<p class="MsoNormal" align="center" style="text-align:center;line-height:150%;  
+mso-layout-grid-align:none;text-autospace:none"><span lang="EN-US"><!--[if gte vml 1]><v:shape  
+ id="_x0000_i1078" type="#_x0000_t75" style='width:102.75pt;height:110.25pt'  
+ o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image034.png"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method27.jpg" v:shapes="_x0000_i1078" width="137" height="147"><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="PBrush" ShapeID="_x0000_i1078"  
+  DrawAspect="Content" ObjectID="_1064042939">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+</span></p>  
+<p class="MsoNormal" align="center" style="text-align:center;line-height:150%;  
+mso-layout-grid-align:none;text-autospace:none"><span lang="EN-US">Fig. 1. The   
+definition of a pulling weight</span></p>  
+<p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;  
+line-height:150%;mso-layout-grid-align:none;text-autospace:none"><span lang="EN-US">In    
+equation (2), <span style="mso-text-raise:-5.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1097" type="#_x0000_t75" style='width:14.25pt;height:20.25pt'   
+ o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image036.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method28.gif" v:shapes="_x0000_i1097" width="19" height="27"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1097"   
+  DrawAspect="Content" ObjectID="_1064042940">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>is the angle between <span style="mso-text-raise:-5.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1098"   
+ type="#_x0000_t75" style='width:33pt;height:17.25pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image038.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method29.gif" v:shapes="_x0000_i1098" width="44" height="23"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1098"   
+  DrawAspect="Content" ObjectID="_1064042941">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>and <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1099"   
+ type="#_x0000_t75" style='width:33pt;height:18pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image040.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method30.gif" v:shapes="_x0000_i1099" width="44" height="24"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1099"   
+  DrawAspect="Content" ObjectID="_1064042942">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>and <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1100"   
+ type="#_x0000_t75" style='width:15.75pt;height:21.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image042.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method31.gif" v:shapes="_x0000_i1100" width="21" height="29"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1100"   
+  DrawAspect="Content" ObjectID="_1064042943">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>is the angle between <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1101"   
+ type="#_x0000_t75" style='width:33pt;height:18pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image044.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method32.gif" v:shapes="_x0000_i1101" width="44" height="24"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1101"   
+  DrawAspect="Content" ObjectID="_1064042944">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>and <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1102"   
+ type="#_x0000_t75" style='width:33pt;height:18pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image046.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method33.gif" v:shapes="_x0000_i1102" width="44" height="24"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1102"   
+  DrawAspect="Content" ObjectID="_1064042945">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+. These correspond to 3D edges of a morphing patch. In this manner, all <span style="mso-text-raise:-7.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1103" type="#_x0000_t75" style='width:18pt;height:21.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image022.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method34.gif" v:shapes="_x0000_i1103" width="24" height="29"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1103"   
+  DrawAspect="Content" ObjectID="_1064042946">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>can be computed. In equation (2),    
+we can imagine that the whole system is a spring system. During iterations, <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1079" type="#_x0000_t75" style='width:14.25pt;height:18pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image013.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method35.gif" v:shapes="_x0000_i1079" width="19" height="24"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1079"   
+  DrawAspect="Content" ObjectID="_1064042947">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>is pulled by several springs    
+connecting to all its neighbors</span><span lang="EN-US" style="mso-fareast-font-family:標楷體"><span style="mso-text-raise:-7.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1080" type="#_x0000_t75" style='width:15.75pt;height:18.75pt'   
+ o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image018.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method36.gif" v:shapes="_x0000_i1080" width="21" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1080"   
+  DrawAspect="Content" ObjectID="_1064042948">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+.</span><span lang="EN-US"> The idea behind the equation (2) is</span><span lang="EN-US" style="mso-font-kerning:0pt">    
+that long edges subtending to big angles are given relatively small spring    
+constants compared with short edges that subtend to small angles. </span><span lang="EN-US">Based    
+on the equation (1), we can use iteration methods to find all <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1025" type="#_x0000_t75" style='width:14.25pt;height:18pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image013.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method37.gif" v:shapes="_x0000_i1025" width="19" height="24"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1025"   
+  DrawAspect="Content" ObjectID="_1064042949">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>and terminate iteration when all <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1026" type="#_x0000_t75" style='width:14.25pt;height:18pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image013.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method38.gif" v:shapes="_x0000_i1026" width="19" height="24"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1026"   
+  DrawAspect="Content" ObjectID="_1064042950">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>are stable. However, in this    
+manner, the computation time is not predictable and could be expensive.    
+Therefore, we will not find <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1027" type="#_x0000_t75" style='width:14.25pt;height:18pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image013.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method39.gif" v:shapes="_x0000_i1027" width="19" height="24"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1027"   
+  DrawAspect="Content" ObjectID="_1064042951">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>by iteration method and will solve    
+it by the following manner.</span></p>   
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify;   
+text-justify:inter-ideograph;line-height:150%"><span lang="EN-US" style="mso-fareast-font-family:標楷體">&nbsp;<o:p>   
+</o:p>   
+</span></p>   
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify;   
+text-justify:inter-ideograph;line-height:150%"><span lang="EN-US" style="mso-fareast-font-family:標楷體">Using    
+equation (1), as </span><span lang="EN-US"><span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1028" type="#_x0000_t75" style='width:14.25pt;height:18pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image013.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method40.gif" v:shapes="_x0000_i1028" width="19" height="24"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1028"   
+  DrawAspect="Content" ObjectID="_1064042952">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>is stable, ideally, <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1029"   
+ type="#_x0000_t75" style='width:49.5pt;height:18.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image055.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method41.gif" v:shapes="_x0000_i1029" width="66" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1029"   
+  DrawAspect="Content" ObjectID="_1064042953">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+. Thus, we will have the following.</span></p>   
+<p class="MsoBodyTextIndent" style="text-justify: inter-ideograph; line-height: 150%; margin-left: 0cm" align="center"><span lang="EN-US" style="mso-fareast-font-family:標楷體"><span style="mso-text-raise:-32.0pt"><!--[if gte vml 1]><v:shapetype  
+ id="_x0000_t75" coordsize="21600,21600" o:spt="75" o:preferrelative="t"  
+ path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f">  
+ <v:stroke joinstyle="miter"/>  
+ <v:formulas>  
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>  
+  <v:f eqn="sum @0 1 0"/>  
+  <v:f eqn="sum 0 0 @1"/>  
+  <v:f eqn="prod @2 1 2"/>  
+  <v:f eqn="prod @3 21600 pixelWidth"/>  
+  <v:f eqn="prod @3 21600 pixelHeight"/>  
+  <v:f eqn="sum @0 0 1"/>  
+  <v:f eqn="prod @6 1 2"/>  
+  <v:f eqn="prod @7 21600 pixelWidth"/>  
+  <v:f eqn="sum @8 21600 0"/>  
+  <v:f eqn="prod @7 21600 pixelHeight"/>  
+  <v:f eqn="sum @10 21600 0"/>  
+ </v:formulas>  
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>  
+ <o:lock v:ext="edit" aspectratio="t"/>  
+</v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:210.75pt;  
+ height:70.5pt' o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image001.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method101.gif" v:shapes="_x0000_i1025" width="281" height="94"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1025"  
+  DrawAspect="Content" ObjectID="_1064044018">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+</span><span lang="EN-US"><span style="mso-spacerun:  
+yes">&nbsp;</span>=&gt;</span><span lang="EN-US" style="mso-fareast-font-family:標楷體"><span style="mso-text-raise:-32.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1026"  
+ type="#_x0000_t75" style='width:101.25pt;height:1in' o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image003.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method101.gif" v:shapes="_x0000_i1026" width="135" height="96"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1026"  
+  DrawAspect="Content" ObjectID="_1064044019">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
+</span>(3)<o:p>  
+</o:p>  
+</span></p>  
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify;  
+text-justify:inter-ideograph;line-height:150%"><span lang="EN-US" style="mso-fareast-font-family:標楷體">Therefore,    
+assume the number of </span><span lang="EN-US"><span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1032" type="#_x0000_t75" style='width:14.25pt;height:18pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image013.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method44.gif" v:shapes="_x0000_i1032" width="19" height="24"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1032"   
+  DrawAspect="Content" ObjectID="_1064042956">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>is <i>N</i>, we can have the    
+following </span><span lang="EN-US" style="mso-fareast-font-family:標楷體">linear    
+system for the proposed relaxation method.</span></p>   
+<p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;  
+text-indent:108.0pt;mso-char-indent-count:9.0;mso-char-indent-size:12.0pt"><!--[if gte vml 1]><v:shapetype  
+ id="_x0000_t87" coordsize="21600,21600" o:spt="87" adj="1800,10800" path="m21600,0qx10800@0l10800@2qy0@11,10800@3l10800@1qy21600,21600e"  
+ filled="f">  
+ <v:formulas>  
+  <v:f eqn="val #0"/>  
+  <v:f eqn="sum 21600 0 #0"/>  
+  <v:f eqn="sum #1 0 #0"/>  
+  <v:f eqn="sum #1 #0 0"/>  
+  <v:f eqn="prod #0 9598 32768"/>  
+  <v:f eqn="sum 21600 0 @4"/>  
+  <v:f eqn="sum 21600 0 #1"/>  
+  <v:f eqn="min #1 @6"/>  
+  <v:f eqn="prod @7 1 2"/>  
+  <v:f eqn="prod #0 2 1"/>  
+  <v:f eqn="sum 21600 0 @9"/>  
+  <v:f eqn="val #1"/>  
+ </v:formulas>  
+ <v:path arrowok="t" o:connecttype="custom" o:connectlocs="21600,0;0,10800;21600,21600"  
+  textboxrect="13963,@4,21600,@5"/>  
+ <v:handles>  
+  <v:h position="center,#0" yrange="0,@8"/>  
+  <v:h position="topLeft,#1" yrange="@9,@10"/>  
+ </v:handles>  
+</v:shapetype><v:shape id="_x0000_s1026" type="#_x0000_t87" style='position:absolute;  
+ left:0;text-align:left;margin-left:1in;margin-top:18pt;width:18pt;height:261pt;  
+ z-index:1'/><![endif]-->  
+<span style="mso-ignore:vglayout;  
+position:absolute;z-index:0;left:0px;margin-left:95px;margin-top:23px;  
+width:28px;height:352px"><img src="Method101.gif" v:shapes="_x0000_s1026" width="28" height="352"></span><span lang="EN-US" style="mso-fareast-font-family:  
+標楷體"><span style="mso-text-raise:-32.0pt"><!--[if gte vml 1]><v:shapetype id="_x0000_t75"  
+ coordsize="21600,21600" o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe"  
+ filled="f" stroked="f">  
+ <v:stroke joinstyle="miter"/>  
+ <v:formulas>  
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>  
+  <v:f eqn="sum @0 1 0"/>  
+  <v:f eqn="sum 0 0 @1"/>  
+  <v:f eqn="prod @2 1 2"/>  
+  <v:f eqn="prod @3 21600 pixelWidth"/>  
+  <v:f eqn="prod @3 21600 pixelHeight"/>  
+  <v:f eqn="sum @0 0 1"/>  
+  <v:f eqn="prod @6 1 2"/>  
+  <v:f eqn="prod @7 21600 pixelWidth"/>  
+  <v:f eqn="sum @8 21600 0"/>  
+  <v:f eqn="prod @7 21600 pixelHeight"/>  
+  <v:f eqn="sum @10 21600 0"/>  
+ </v:formulas>  
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>  
+ <o:lock v:ext="edit" aspectratio="t"/>  
+</v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:135pt;  
+ height:73.5pt' o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image002.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+&nbsp;&nbsp;&nbsp; <img src="Method101.gif" v:shapes="_x0000_i1025" width="180" height="98"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1025"  
+  DrawAspect="Content" ObjectID="_1064044048">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+<o:p>  
+</o:p>  
+</span></p>  
+<p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;  
+text-indent:108.0pt;mso-char-indent-count:9.0;mso-char-indent-size:12.0pt"><span lang="EN-US" style="mso-fareast-font-family:標楷體"><span style="mso-text-raise:  
+-32.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1026" type="#_x0000_t75"  
+ style='width:141.75pt;height:74.25pt' o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image004.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+&nbsp;&nbsp;&nbsp; <img src="Method101.gif" v:shapes="_x0000_i1026" width="189" height="99"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1026"  
+  DrawAspect="Content" ObjectID="_1064044049">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
+</span><o:p>  
+</o:p>  
+</span></p>  
+<p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;  
+tab-stops:132.75pt"><span lang="EN-US" style="mso-fareast-font-family:標楷體"><span style="mso-tab-count:1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
+</span><span style="mso-text-raise:-3.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1027"  
+ type="#_x0000_t75" style='width:6pt;height:15pt' o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image006.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method101.gif" v:shapes="_x0000_i1027" width="8" height="20"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1027"  
+  DrawAspect="Content" ObjectID="_1064044050">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+<o:p>  
+</o:p>  
+</span></p>  
+<p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph"><span lang="EN-US" style="mso-fareast-font-family:標楷體"><span style="mso-tab-count:1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
+</span><span style="mso-spacerun:  
+yes">&nbsp;&nbsp;</span><span style="mso-text-raise:-32.0pt"><!--[if gte vml 1]><v:shape  
+ id="_x0000_i1028" type="#_x0000_t75" style='width:150.75pt;height:75.75pt'  
+ o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image008.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method101.gif" v:shapes="_x0000_i1028" width="201" height="101"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1028"  
+  DrawAspect="Content" ObjectID="_1064044051">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>(4)</span></p>  
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify;  
+text-justify:inter-ideograph;line-height:150%">　</p>
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify;
+text-justify:inter-ideograph;line-height:150%"><span lang="EN-US" style="mso-fareast-font-family:標楷體">Let   
+<span style="mso-text-raise:-15.0pt"><!--[if gte vml 1]><v:shapetype  
+ id="_x0000_t75" coordsize="21600,21600" o:spt="75" o:preferrelative="t"  
+ path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f">  
+ <v:stroke joinstyle="miter"/>  
+ <v:formulas>  
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>  
+  <v:f eqn="sum @0 1 0"/>  
+  <v:f eqn="sum 0 0 @1"/>  
+  <v:f eqn="prod @2 1 2"/>  
+  <v:f eqn="prod @3 21600 pixelWidth"/>  
+  <v:f eqn="prod @3 21600 pixelHeight"/>  
+  <v:f eqn="sum @0 0 1"/>  
+  <v:f eqn="prod @6 1 2"/>  
+  <v:f eqn="prod @7 21600 pixelWidth"/>  
+  <v:f eqn="sum @8 21600 0"/>  
+  <v:f eqn="prod @7 21600 pixelHeight"/>  
+  <v:f eqn="sum @10 21600 0"/>  
+ </v:formulas>  
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>  
+ <o:lock v:ext="edit" aspectratio="t"/>  
+</v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:61.5pt;  
+ height:41.25pt' o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image001.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method102.gif" v:shapes="_x0000_i1025" width="82" height="55"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1025"  
+  DrawAspect="Content" ObjectID="_1064044111">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+</span><span lang="EN-NZ" style="mso-fareast-font-family:標楷體;  
+mso-ansi-language:EN-NZ"><span style="mso-spacerun: yes">&nbsp;</span>and <span style="mso-text-raise:-3.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1026"  
+ type="#_x0000_t75" style='width:39.75pt;height:14.25pt' o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image003.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method103.gif" v:shapes="_x0000_i1026" width="53" height="19"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1026"  
+  DrawAspect="Content" ObjectID="_1064044112">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+, the </span><span lang="EN-US" style="mso-fareast-font-family:  
+標楷體">above linear system can be represented as the following form</span><span style="font-family:標楷體;mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:  
+&quot;Times New Roman&quot;;mso-ansi-language:EN-NZ">：</span><span lang="EN-US" style="mso-fareast-font-family:標楷體"><o:p>  
+</o:p>  
+</span></p>  
+<p class="MsoNormal" style="text-justify: inter-ideograph; text-indent: 12.0pt; mso-char-indent-count: 1.0; mso-char-indent-size: 12.0pt; tab-stops: 78.75pt; margin-left: 4.0gd" align="center"><span lang="EN-US" style="mso-fareast-font-family:標楷體"><span style="mso-text-raise:-15.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1027"  
+ type="#_x0000_t75" style='width:84pt;height:36.75pt' o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image005.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method103.gif" v:shapes="_x0000_i1027" width="112" height="49"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1027"  
+  DrawAspect="Content" ObjectID="_1064044113">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+<o:p>  
+</o:p>  
+</span></p>  
+<p class="MsoNormal" style="text-justify: inter-ideograph; text-indent: 12.0pt; mso-char-indent-count: 1.0; mso-char-indent-size: 12.0pt; tab-stops: 78.75pt; margin-left: 4.0gd" align="center"><span lang="EN-US" style="mso-fareast-font-family:標楷體"><span style="mso-text-raise:-15.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1028"  
+ type="#_x0000_t75" style='width:84pt;height:36pt' o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image007.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method103.gif" v:shapes="_x0000_i1028" width="112" height="48"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1028"  
+  DrawAspect="Content" ObjectID="_1064044114">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+<o:p>  
+</o:p>  
+</span></p>  
+<p class="MsoNormal" style="text-justify: inter-ideograph; text-indent: 36.0pt; mso-char-indent-count: 3.0; mso-char-indent-size: 12.0pt; tab-stops: 78.75pt; margin-left: 4.0gd" align="center"><span lang="EN-US" style="mso-fareast-font-family:標楷體"><span style="mso-text-raise:-3.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1029"  
+ type="#_x0000_t75" style='width:6pt;height:15pt' o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image009.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method103.gif" v:shapes="_x0000_i1029" width="8" height="20"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1029"  
+  DrawAspect="Content" ObjectID="_1064044115">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+<o:p>  
+</o:p>  
+</span></p>  
+<p class="MsoNormal" style="text-justify: inter-ideograph; text-indent: 12.0pt; mso-char-indent-count: 1.0; mso-char-indent-size: 12.0pt; line-height: 150%; margin-left: 4.0gd" align="center"><span lang="EN-US" style="mso-fareast-font-family:標楷體"><span style="mso-text-raise:-15.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1030"  
+ type="#_x0000_t75" style='width:84pt;height:33.75pt' o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image011.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
+<img src="Method103.gif" v:shapes="_x0000_i1030" width="112" height="45"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1030"  
+  DrawAspect="Content" ObjectID="_1064044116">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+<span style="mso-spacerun:  
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
+</span>(5)<o:p>  
+</o:p>  
+</span></p>  
+<p class="MsoNormal" style="text-justify: inter-ideograph; text-indent: 12.0pt; mso-char-indent-count: 1.0; mso-char-indent-size: 12.0pt; line-height: 150%; margin-left: 4.0gd" align="center"><span lang="EN-US" style="mso-fareast-font-family:標楷體">  
+</o:p>  
+</span></p>  
+<p class="MsoNormal" style="text-align: justify; text-justify: inter-ideograph; line-height: 200%"><span lang="EN-US" style="mso-fareast-font-family:標楷體">This   
+linear system is not singular, so that it has a unique solution. Furthermore,   
+for each </span><span lang="EN-US"><span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape  
+ id="_x0000_i1043" type="#_x0000_t75" style='width:14.25pt;height:18pt' o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image013.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method56.gif" v:shapes="_x0000_i1043" width="19" height="24"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1043"  
+  DrawAspect="Content" ObjectID="_1064042968">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+, the number of its neighbors is small compared to <i>N</i>. Therefore it is a   
+sparse system and can be solved efficiently by using numerical method.</span></p>  
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify;  
+text-justify:inter-ideograph;line-height:150%"><span lang="EN-US">&nbsp;<o:p>  
+</o:p>   
+</span></p>   
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify;   
+text-justify:inter-ideograph;line-height:150%"><b><span lang="EN-US" style="font-size:14.0pt;mso-bidi-font-size:12.0pt"><font color="#008000">3.4    
+Aligning the Features and Foldover-Free Warping<o:p>   
+ </font> 
+</o:p> 
+</span></b></p> 
+<p class="MsoBodyTextIndent" style="text-align: justify; text-justify: inter-ideograph; line-height: 200%; margin-left: 0cm"><span lang="EN-US">Given   
+a pair of morphing patches (<span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shapetype  
+ id="_x0000_t75" coordsize="21600,21600" o:spt="75" o:preferrelative="t"  
+ path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f">  
+ <v:stroke joinstyle="miter"/>  
+ <v:formulas>  
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>  
+  <v:f eqn="sum @0 1 0"/>  
+  <v:f eqn="sum 0 0 @1"/>  
+  <v:f eqn="prod @2 1 2"/>  
+  <v:f eqn="prod @3 21600 pixelWidth"/>  
+  <v:f eqn="prod @3 21600 pixelHeight"/>  
+  <v:f eqn="sum @0 0 1"/>  
+  <v:f eqn="prod @6 1 2"/>  
+  <v:f eqn="prod @7 21600 pixelWidth"/>  
+  <v:f eqn="sum @8 21600 0"/>  
+  <v:f eqn="prod @7 21600 pixelHeight"/>  
+  <v:f eqn="sum @10 21600 0"/>  
+ </v:formulas>  
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>  
+ <o:lock v:ext="edit" aspectratio="t"/>  
+</v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:18pt;  
+ height:18.75pt' o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image001.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method104.gif" v:shapes="_x0000_i1025" width="24" height="25"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1025"  
+  DrawAspect="Content" ObjectID="_1064044220">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+,<span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape  
+ id="_x0000_i1026" type="#_x0000_t75" style='width:18pt;height:18.75pt' o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image003.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method105.gif" v:shapes="_x0000_i1026" width="24" height="25"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1026"  
+  DrawAspect="Content" ObjectID="_1064044222">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+), <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape  
+ id="_x0000_i1027" type="#_x0000_t75" style='width:50.25pt;height:18.75pt'  
+ o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image005.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method105.gif" v:shapes="_x0000_i1027" width="67" height="25"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1027"  
+  DrawAspect="Content" ObjectID="_1064044223">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+are their corresponding 2D embeddings. Their extreme vertices are automatically   
+aligned by user specification. Using this initial correspondence, we could   
+directly overlay two embeddings to get a merged embedding for morphing. For   
+example in Figure 2 (a), we select a corresponding morphing patch on two given   
+models and the number of extreme vertices is five. There are two extra vertex   
+pairs<span style="mso-text-raise:-5.0pt"><!--[if gte vml 1]><v:shape  
+ id="_x0000_i1028" type="#_x0000_t75" style='width:32.25pt;height:15.75pt'  
+ o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image007.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method105.gif" v:shapes="_x0000_i1028" width="43" height="21"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1028"  
+  DrawAspect="Content" ObjectID="_1064044224">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+and<span style="mso-text-raise:-5.0pt"><!--[if gte vml 1]><v:shape  
+ id="_x0000_i1029" type="#_x0000_t75" style='width:27.75pt;height:15.75pt'  
+ o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image009.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method105.gif" v:shapes="_x0000_i1029" width="37" height="21"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1029"  
+  DrawAspect="Content" ObjectID="_1064044225">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+ shown in both models, respectively. These extra vertices represent eye corners.   
+In Figure 2(b), we show both <span style="mso-text-raise:  
+-6.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1030" type="#_x0000_t75"  
+ style='width:50.25pt;height:18.75pt' o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image005.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method105.gif" v:shapes="_x0000_i1030" width="67" height="25"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1030"  
+  DrawAspect="Content" ObjectID="_1064044226">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+<span style="mso-spacerun: yes">&nbsp;</span>after embedding. It is obvious to   
+see that vertex pairs<span style="mso-text-raise:-5.0pt"><!--[if gte vml 1]><v:shape  
+ id="_x0000_i1031" type="#_x0000_t75" style='width:32.25pt;height:15.75pt'  
+ o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image007.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method105.gif" v:shapes="_x0000_i1031" width="43" height="21"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1031"  
+  DrawAspect="Content" ObjectID="_1064044227">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+and<span style="mso-text-raise:-5.0pt"><!--[if gte vml 1]><v:shape  
+ id="_x0000_i1032" type="#_x0000_t75" style='width:27.75pt;height:15.75pt'  
+ o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image009.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method105.gif" v:shapes="_x0000_i1032" width="37" height="21"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1032"  
+  DrawAspect="Content" ObjectID="_1064044228">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+do not align if we directly overlay <span style="mso-text-raise:  
+-6.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1033" type="#_x0000_t75"  
+ style='width:50.25pt;height:18.75pt' o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image005.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method105.gif" v:shapes="_x0000_i1033" width="67" height="25"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1033"  
+  DrawAspect="Content" ObjectID="_1064044229">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+. Therefore, to compute better correspondence, we usually require animators to   
+specify several extra corresponding features such as vertex pairs<span style="mso-text-raise:-5.0pt"><!--[if gte vml 1]><v:shape  
+ id="_x0000_i1034" type="#_x0000_t75" style='width:32.25pt;height:15.75pt'  
+ o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image007.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method105.gif" v:shapes="_x0000_i1034" width="43" height="21"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1034"  
+  DrawAspect="Content" ObjectID="_1064044230">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+and<span style="mso-text-raise:-5.0pt"><!--[if gte vml 1]><v:shape  
+ id="_x0000_i1035" type="#_x0000_t75" style='width:27.75pt;height:15.75pt'  
+ o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image009.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method105.gif" v:shapes="_x0000_i1035" width="37" height="21"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1035"  
+  DrawAspect="Content" ObjectID="_1064044231">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+on both <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape  
+ id="_x0000_i1036" type="#_x0000_t75" style='width:50.25pt;height:18.75pt'  
+ o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image005.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method105.gif" v:shapes="_x0000_i1036" width="67" height="25"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1036"  
+  DrawAspect="Content" ObjectID="_1064044232">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+. Then we employ a foldover-free warping function to align<span style="mso-text-raise:-5.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1037"  
+ type="#_x0000_t75" style='width:32.25pt;height:15.75pt' o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image007.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method105.gif" v:shapes="_x0000_i1037" width="43" height="21"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1037"  
+  DrawAspect="Content" ObjectID="_1064044233">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+and<span style="mso-text-raise:-5.0pt"><!--[if gte vml 1]><v:shape  
+ id="_x0000_i1038" type="#_x0000_t75" style='width:27.75pt;height:15.75pt'  
+ o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image009.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method105.gif" v:shapes="_x0000_i1038" width="37" height="21"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1038"  
+  DrawAspect="Content" ObjectID="_1064044234">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+. Non-feature points will be automatically moved by the warping function, too.   
+Like [5], to minimize distortion due to warping, we first move these extra   
+corresponding feature points linearly to the point halfway between them and then   
+perform warping.<o:p>  
+</o:p>  
+</span></p>  
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify;  
+text-justify:inter-ideograph;line-height:150%"><span lang="EN-US">Our warping is   
+simply computed as a weighted sum of radial basis function (RBF). Suppose there   
+are <i>n</i> extra feature pairs. Since<span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape  
+ id="_x0000_i1039" type="#_x0000_t75" style='width:50.25pt;height:18.75pt'  
+ o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image005.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method105.gif" v:shapes="_x0000_i1039" width="67" height="25"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1039"  
+  DrawAspect="Content" ObjectID="_1064044235">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+ are both in 2D, the radial function <i>R</i> consists of two components<span style="mso-text-raise:-5.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1040"  
+ type="#_x0000_t75" style='width:41.25pt;height:17.25pt' o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image021.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method105.gif" v:shapes="_x0000_i1040" width="55" height="23"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1040"  
+  DrawAspect="Content" ObjectID="_1064044236">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+, where each component has the following form.</span></p>  
+<p class="MsoBodyTextIndent" align="center" style="line-height: 150%; margin-left: 0cm"><span lang="EN-US" style="mso-fareast-font-family:標楷體"><span style="mso-text-raise:-14.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1041"  
+ type="#_x0000_t75" style='width:125.25pt;height:33.75pt' o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image023.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method105.gif" v:shapes="_x0000_i1041" width="167" height="45"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1041"  
+  DrawAspect="Content" ObjectID="_1064044237">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+,<span style="mso-spacerun: yes">&nbsp; </span><i>j</i> = 1,2<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
+</span>(6)<o:p>  
+</o:p>  
+</span></p>  
+<p class="MsoBodyTextIndent" style="text-align: justify; text-justify: inter-ideograph; line-height: 200%; margin-left: 0cm"><span lang="EN-US">In   
+equation (6), </span><span lang="EN-US" style="mso-fareast-font-family:標楷體"><span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1042"  
+ type="#_x0000_t75" style='width:15pt;height:18.75pt' o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image025.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method105.gif" v:shapes="_x0000_i1042" width="20" height="25"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1042"  
+  DrawAspect="Content" ObjectID="_1064044238">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+are coefficients to be computed, <i>g </i>is the radial function and </span><span lang="EN-US"><span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape  
+ id="_x0000_i1043" type="#_x0000_t75" style='width:14.25pt;height:18pt' o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image027.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method105.gif" v:shapes="_x0000_i1043" width="19" height="24"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1043"  
+  DrawAspect="Content" ObjectID="_1064044239">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+<span style="mso-spacerun: yes">&nbsp;</span>is a feature point.</span><span lang="EN-US" style="mso-fareast-font-family:標楷體">   
+For each given <i>p</i>, we compute its new position by</span><span lang="EN-US"><span style="mso-text-raise:  
+-5.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1044" type="#_x0000_t75"  
+ style='width:74.25pt;height:17.25pt' o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image029.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method105.gif" v:shapes="_x0000_i1044" width="99" height="23"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1044"  
+  DrawAspect="Content" ObjectID="_1064044240">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+using equation (6)</span><span lang="EN-US" style="mso-fareast-font-family:  
+標楷體">. In total, there are 2<i>n</i> coefficients to compute. In current   
+implementation, the radial basis function we use is a Gaussian function:<o:p>  
+</o:p>  
+</span></p>  
+<p class="MsoBodyTextIndent" align="center" style="line-height: 150%; margin-left: 0cm"><span lang="EN-US" style="font-family:標楷體"><span style="mso-text-raise:-5.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1051"  
+ type="#_x0000_t75" style='width:82.5pt;height:42.75pt' o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image031.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method105.gif" v:shapes="_x0000_i1051" width="110" height="57"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1051"  
+  DrawAspect="Content" ObjectID="_1064044241">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+<span style="mso-spacerun:  
+yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
+</span>(7)<o:p>  
+</o:p>  
+</span></p>  
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify;  
+text-justify:inter-ideograph;line-height:150%"><span lang="EN-US" style="font-family:標楷體">In   
+equation (7), </span><span lang="EN-US">the variance <span style="mso-text-raise:-3.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1052"  
+ type="#_x0000_t75" style='width:12pt;height:11.25pt' o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image033.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method105.gif" v:shapes="_x0000_i1052" width="16" height="15"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1052"  
+  DrawAspect="Content" ObjectID="_1064044242">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+<span style="mso-spacerun: yes">&nbsp;</span>controls the degree of locality of   
+the transformation. In Figure 2 (c), we show <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1053"  
+ type="#_x0000_t75" style='width:50.25pt;height:18.75pt' o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image005.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method105.gif" v:shapes="_x0000_i1053" width="67" height="25"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1053"  
+  DrawAspect="Content" ObjectID="_1064044243">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+<span style="mso-spacerun: yes">&nbsp;</span>with warping by two extra feature   
+points. This result is better than that of Figure 2(b). Therefore, we can   
+overlay them now to get a merged embedding for morphing. Sometimes, the warping   
+can lead to fold-over (self-intersections) on <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1049"  
+ type="#_x0000_t75" style='width:50.25pt;height:18.75pt' o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image005.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method105.gif" v:shapes="_x0000_i1049" width="67" height="25"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1049"  
+  DrawAspect="Content" ObjectID="_1064044244">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+. We need foldover-free embeddings. To solve foldover, we first check if   
+self-intersections occur on <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape  
+ id="_x0000_i1050" type="#_x0000_t75" style='width:50.25pt;height:18.75pt'  
+ o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image005.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method105.gif" v:shapes="_x0000_i1050" width="67" height="25"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1050"  
+  DrawAspect="Content" ObjectID="_1064044245">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+<span style="mso-spacerun: yes">&nbsp;</span>after warping. If   
+self-intersections occur, we simply iterate equation (1) instead of solving   
+equation (5). Usually, it requires a few iterations and self-intersections will   
+not occur. In the following, we show how to check if self-intersections occur.</span></p>  
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify;  
+text-justify:inter-ideograph;line-height:150%"><span lang="EN-US">&nbsp;<o:p>  
+</o:p>  
+</span></p>  
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify;  
+text-justify:inter-ideograph;line-height:150%"><span lang="EN-US">Our inputs are   
+genus 0 3D polyhedral models with 1-ring structure. Therefore, if there is no   
+self-intersection on both <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape  
+ id="_x0000_i1045" type="#_x0000_t75" style='width:50.25pt;height:18.75pt'  
+ o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image005.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method105.gif" v:shapes="_x0000_i1045" width="67" height="25"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1045"  
+  DrawAspect="Content" ObjectID="_1064044246">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+, each interior point of both embeddings must have a complete 1-ring structure   
+in 2D. If any interior point of an embedding has an incomplete 1-ring structure,   
+the self-intersection occurs. To check if a point has a complete 1-ring   
+structure, we compute the following:</span></p>  
+<p class="MsoNormal" style="margin-left:7.0gd;line-height:150%"><span lang="EN-US" style="font-family:標楷體"><span style="mso-text-raise:-5.0pt"><!--[if gte vml 1]><v:shape  
+ id="_x0000_i1046" type="#_x0000_t75" style='width:68.25pt;height:24pt' o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image039.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method105.gif" v:shapes="_x0000_i1046" width="91" height="32"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1046"  
+  DrawAspect="Content" ObjectID="_1064044247">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+<span style="mso-tab-count:1">&nbsp;&nbsp; </span><span style="mso-spacerun: yes">&nbsp;</span>(</span><span lang="EN-US"><span style="mso-text-raise:-3.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1047"  
+ type="#_x0000_t75" style='width:12.75pt;height:14.25pt' o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image041.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method105.gif" v:shapes="_x0000_i1047" width="17" height="19"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1047"  
+  DrawAspect="Content" ObjectID="_1064044248">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+: </span><span lang="EN-US" style="font-family:標楷體">the right-hand vector   
+cross product)<o:p>  
+</o:p>  
+</span></p>  
+<p class="MsoNormal" style="margin-left:7.0gd;line-height:150%" align="center"><span lang="EN-US"><span style="mso-text-raise:-15.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1048"  
+ type="#_x0000_t75" style='width:116.25pt;height:36pt' o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image043.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method105.gif" v:shapes="_x0000_i1048" width="155" height="48"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1048"  
+  DrawAspect="Content" ObjectID="_1064044249">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
+</span>(8)</span></p>  
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify;  
+text-justify:inter-ideograph;line-height:150%">　</p>
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify;
+text-justify:inter-ideograph;line-height:150%">　</p>
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify;
+text-justify:inter-ideograph;line-height:150%"><span lang="EN-US">In equation    
+(8), we need to check all nodes at <i>p</i>’s 1-ring structure. If any    
+violation (i.e., <i>M</i> &lt;=0) occurs, it is an incomplete ring structure in    
+2D. Note that the vertices of a triangle are in counterclockwise order. Figure 3    
+is used to illustrate the equation (8). In Figure 3 (a), before embedding, <i>P </i>(i.e.,    
+<i>p</i>’s corresponding vertex in 3D) has a complete 1-ring structure. After    
+embedding and warping, a self-intersection occurs as shown in Figure 3 (b). In    
+this case, we simply check all nodes at <i>p</i>’s 1-ring structure and find (<i>a</i>,    
+<i>b</i>) violates equation (8).<span style="mso-spacerun: yes">&nbsp;</span></span></p>   
+<p class="MsoBodyTextIndent" align="center" style="margin-left:0cm;text-align:center;   
+line-height:150%"><span lang="EN-US"><!--[if gte vml 1]><v:shape id="_x0000_i1068"   
+ type="#_x0000_t75" style='width:315pt;height:179.25pt'>   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image124.jpg"   
+  o:title="13"/>   
+</v:shape><![endif]-->   
+<img src="Method86.jpg" v:shapes="_x0000_i1068" width="420" height="239"></span></p>   
+<p class="MsoBodyTextIndent" style="text-justify: inter-ideograph; text-indent: -18.0pt; line-height: 150%; mso-list: l19 level1 lfo6; tab-stops: list 18.0pt; margin-left: 18.0pt" align="center"><span lang="EN-US">(a)<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;    
+</span>The user picks five extreme vertices (i.e., blue dots) and two extra    
+feature vertices (i.e., red dots).</span></p>   
+<p class="MsoBodyTextIndent" align="center" style="margin-left:0cm;text-align:center;   
+line-height:150%"><span lang="EN-US"><!--[if gte vml 1]><v:shape id="_x0000_i1069"   
+ type="#_x0000_t75" style='width:384.75pt;height:189pt'>   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image126.jpg"   
+  o:title="13b"/>   
+</v:shape><![endif]-->   
+<img src="Method87.jpg" v:shapes="_x0000_i1069" width="513" height="252"></span></p>   
+<p class="MsoBodyTextIndent" align="center" style="margin-left:18.0pt;text-align:   
+center;text-indent:-18.0pt;line-height:150%;mso-list:l19 level1 lfo6;   
+tab-stops:list 18.0pt"><span lang="EN-US">(b)<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;    
+</span>Embeddings without warping.</span></p>   
+<p class="MsoBodyTextIndent" align="center" style="margin-left:0cm;text-align:center;   
+line-height:150%"><span lang="EN-US"><!--[if gte vml 1]><v:shape id="_x0000_i1070"   
+ type="#_x0000_t75" style='width:369pt;height:200.25pt'>   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image128.jpg"   
+  o:title="13c"/>   
+</v:shape><![endif]-->   
+<img src="Method88.jpg" v:shapes="_x0000_i1070" width="492" height="267"></span></p>   
+<p class="MsoBodyTextIndent" align="center" style="margin-left:18.0pt;text-align:   
+center;text-indent:-18.0pt;line-height:150%;mso-list:l19 level1 lfo6;   
+tab-stops:list 18.0pt"><span lang="EN-US">(c)<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;    
+</span>Embedding with warping by two extra features (i.e., red dots).</span></p>   
+<p class="MsoBodyTextIndent" align="center" style="margin-left:0cm;text-align:center;   
+line-height:150%"><span lang="EN-US">Figure 2. Embedding and warping.</span></p>   
+<p class="MsoBodyTextIndent" align="center" style="margin-left:0cm;text-align:center;   
+line-height:150%"><span lang="EN-US">(a)<!--[if gte vml 1]><v:shape id="_x0000_i1071"   
+ type="#_x0000_t75" style='width:117pt;height:99.75pt'>   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image130.jpg"   
+  o:title="16"/>   
+</v:shape><![endif]-->   
+<img src="Method89.jpg" v:shapes="_x0000_i1071" width="156" height="133"><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    
+</span>(b)<!--[if gte vml 1]><v:shape id="_x0000_i1072" type="#_x0000_t75"   
+ style='width:114pt;height:97.5pt'>   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image132.jpg"   
+  o:title="16b"/>   
+</v:shape><![endif]-->   
+<img src="Method90.jpg" v:shapes="_x0000_i1072" width="152" height="130"></span></p>   
+<p class="MsoBodyTextIndent" style="text-justify: inter-ideograph; line-height: 150%; margin-left: 0cm" align="center"><span lang="EN-US">Figure    
+3 (a) prior to embedding and warping, <span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1073" type="#_x0000_t75" style='width:12pt;height:12.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image134.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method91.gif" v:shapes="_x0000_i1073" width="16" height="17"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1073"   
+  DrawAspect="Content" ObjectID="_1064042998">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>has a complete 1-ring structure in    
+3D and (b) <span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1074" type="#_x0000_t75" style='width:12pt;height:12.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image134.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method92.gif" v:shapes="_x0000_i1074" width="16" height="17"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1074"   
+  DrawAspect="Content" ObjectID="_1064042999">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>has an incomplete 1-ring structure    
+in 2D after embedding and warping.</span></p>   
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify;   
+text-justify:inter-ideograph;line-height:150%"><b><span lang="EN-US" style="font-size:14.0pt;mso-bidi-font-size:12.0pt"><font color="#008000">3.5    
+Efficient Local Merging<o:p>   
+ </font> 
+</o:p> 
+</span></b></p> 
+<p class="MsoBodyTextIndent" style="text-align: justify; text-justify: inter-ideograph; line-height: 200%; margin-left: 0cm"><span lang="EN-US">Given two    
+embeddings <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shapetype   
+ id="_x0000_t75" coordsize="21600,21600" o:spt="75" o:preferrelative="t"   
+ path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f">   
+ <v:stroke joinstyle="miter"/>   
+ <v:formulas>   
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>   
+  <v:f eqn="sum @0 1 0"/>   
+  <v:f eqn="sum 0 0 @1"/>   
+  <v:f eqn="prod @2 1 2"/>   
+  <v:f eqn="prod @3 21600 pixelWidth"/>   
+  <v:f eqn="prod @3 21600 pixelHeight"/>   
+  <v:f eqn="sum @0 0 1"/>   
+  <v:f eqn="prod @6 1 2"/>   
+  <v:f eqn="prod @7 21600 pixelWidth"/>   
+  <v:f eqn="sum @8 21600 0"/>   
+  <v:f eqn="prod @7 21600 pixelHeight"/>   
+  <v:f eqn="sum @10 21600 0"/>   
+ </v:formulas>   
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>   
+ <o:lock v:ext="edit" aspectratio="t"/>   
+</v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:50.25pt;   
+ height:18.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image001.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+ <span lang="EN-US" style="font-size:12.0pt;font-family:  
+&quot;Times New Roman&quot;;mso-fareast-font-family:新細明體;mso-font-kerning:1.0pt;  
+mso-ansi-language:EN-US;mso-fareast-language:ZH-TW;mso-bidi-language:AR-SA"><!--[if gte vml 1]><v:shapetype id="_x0000_t75"  
+ coordsize="21600,21600" o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe"  
+ filled="f" stroked="f">  
+ <v:stroke joinstyle="miter"/>  
+ <v:formulas>  
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>  
+  <v:f eqn="sum @0 1 0"/>  
+  <v:f eqn="sum 0 0 @1"/>  
+  <v:f eqn="prod @2 1 2"/>  
+  <v:f eqn="prod @3 21600 pixelWidth"/>  
+  <v:f eqn="prod @3 21600 pixelHeight"/>  
+  <v:f eqn="sum @0 0 1"/>  
+  <v:f eqn="prod @6 1 2"/>  
+  <v:f eqn="prod @7 21600 pixelWidth"/>  
+  <v:f eqn="sum @8 21600 0"/>  
+  <v:f eqn="prod @7 21600 pixelHeight"/>  
+  <v:f eqn="sum @10 21600 0"/>  
+ </v:formulas>  
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>  
+ <o:lock v:ext="edit" aspectratio="t"/>  
+</v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:50.25pt;  
+ height:18.75pt' o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image001.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+ <img src="Method106.gif" v:shapes="_x0000_i1025" width="67" height="25"><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1025"  
+  DrawAspect="Content" ObjectID="_1064044376">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+</span></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1025"  
+  DrawAspect="Content" ObjectID="_1064043053">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+ , we merge them to produce a common embedding that contains the faces, edges and    
+vertices. The complexity of a brute-force merging algorithm is<span lang="EN-US" style="font-size:12.0pt;font-family:  
+&quot;Times New Roman&quot;;mso-fareast-font-family:新細明體;mso-font-kerning:1.0pt;  
+mso-ansi-language:EN-US;mso-fareast-language:ZH-TW;mso-bidi-language:AR-SA"><span style="mso-text-raise:-5.0pt"><!--[if gte vml 1]><v:shapetype id="_x0000_t75"  
+ coordsize="21600,21600" o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe"  
+ filled="f" stroked="f">  
+ <v:stroke joinstyle="miter"/>  
+ <v:formulas>  
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>  
+  <v:f eqn="sum @0 1 0"/>  
+  <v:f eqn="sum 0 0 @1"/>  
+  <v:f eqn="prod @2 1 2"/>  
+  <v:f eqn="prod @3 21600 pixelWidth"/>  
+  <v:f eqn="prod @3 21600 pixelHeight"/>  
+  <v:f eqn="sum @0 0 1"/>  
+  <v:f eqn="prod @6 1 2"/>  
+  <v:f eqn="prod @7 21600 pixelWidth"/>  
+  <v:f eqn="sum @8 21600 0"/>  
+  <v:f eqn="prod @7 21600 pixelHeight"/>  
+  <v:f eqn="sum @10 21600 0"/>  
+ </v:formulas>  
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>  
+ <o:lock v:ext="edit" aspectratio="t"/>  
+</v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:27pt;  
+ height:18pt' o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image001.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+</span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1025"  
+  DrawAspect="Content" ObjectID="_1064044396">  
+ </o:OLEObject>  
+</xml><![endif]-->  
+<span style="mso-text-raise:-5.0pt"><!--[if gte vml 1]><v:shapetype id="_x0000_t75"  
+ coordsize="21600,21600" o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe"  
+ filled="f" stroked="f">  
+ <v:stroke joinstyle="miter"/>  
+ <v:formulas>  
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>  
+  <v:f eqn="sum @0 1 0"/>  
+  <v:f eqn="sum 0 0 @1"/>  
+  <v:f eqn="prod @2 1 2"/>  
+  <v:f eqn="prod @3 21600 pixelWidth"/>  
+  <v:f eqn="prod @3 21600 pixelHeight"/>  
+  <v:f eqn="sum @0 0 1"/>  
+  <v:f eqn="prod @6 1 2"/>  
+  <v:f eqn="prod @7 21600 pixelWidth"/>  
+  <v:f eqn="sum @8 21600 0"/>  
+  <v:f eqn="prod @7 21600 pixelHeight"/>  
+  <v:f eqn="sum @10 21600 0"/>  
+ </v:formulas>  
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>  
+ <o:lock v:ext="edit" aspectratio="t"/>  
+</v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:27pt;  
+ height:18pt' o:ole="">  
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/03/clip_image001.wmz"  
+  o:title=""/>  
+</v:shape><![endif]-->  
+<img src="Method107.gif" v:shapes="_x0000_i1025" width="36" height="24"></span><!--[if gte mso 9]><xml>  
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1025"  
+  DrawAspect="Content" ObjectID="_1064044443">  
+ </o:OLEObject>  
+</xml><![endif]-->  
++<i>k</i>),</span>where <i>n</i> is the number of edges and <i>k</i> is the number of    
+intersections. This na&iuml;ve approach globally checks all edges to find the    
+possible intersections. We present a novel method for checking edges locally and    
+efficiently computing the intersections. The complexity of the proposed method    
+is <span style="mso-text-raise:-5.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1102" type="#_x0000_t75" style='width:45pt;height:15.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image005.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method95.gif" v:shapes="_x0000_i1102" width="60" height="21"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1102"   
+  DrawAspect="Content" ObjectID="_1064043055">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+. Additionally, to efficiently implement our method, a lookup table is created.<o:p>   
+ <font color="#008000">  
+</o:p>  
+</font>  
+</span></p>  
+<p class="MsoBodyTextIndent" style="margin-left:0cm;line-height:150%"><b><span lang="EN-US" style="font-size:14.0pt;mso-bidi-font-size:12.0pt"><font color="#008000">3.5.1    
+The Classification of the Corresponding Positions<o:p>   
+ </font> 
+</o:p> 
+</span></b></p> 
+<p class="MsoBodyTextIndent" style="text-align: justify; text-justify: inter-ideograph; line-height: 200%; margin-left: 0cm"><span lang="EN-US">The merging    
+algorithm wants to overlay each edge<span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1103" type="#_x0000_t75" style='width:33.75pt;height:21pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image007.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method96.gif" v:shapes="_x0000_i1103" width="45" height="28"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1103"   
+  DrawAspect="Content" ObjectID="_1064043056">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1104" type="#_x0000_t75" style='width:27.75pt;height:18.75pt'   
+ o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image009.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method97.gif" v:shapes="_x0000_i1104" width="37" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1104"   
+  DrawAspect="Content" ObjectID="_1064043057">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+ on <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1105" type="#_x0000_t75" style='width:18.75pt;height:18.75pt'   
+ o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image011.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method98.gif" v:shapes="_x0000_i1105" width="25" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1105"   
+  DrawAspect="Content" ObjectID="_1064043058">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+, where <i>S</i> and <i>E</i> represent the starting and ending points of a    
+given edge. Since the correspondence of each extreme vertex has been established    
+before embedding by animators, we perform the overlay starting from a <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1106" type="#_x0000_t75" style='width:33.75pt;height:21pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image007.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method99.gif" v:shapes="_x0000_i1106" width="45" height="28"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1106"   
+  DrawAspect="Content" ObjectID="_1064043059">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1107" type="#_x0000_t75" style='width:27.75pt;height:18.75pt'   
+ o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image009.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method2.gif" v:shapes="_x0000_i1107" width="37" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1107"   
+  DrawAspect="Content" ObjectID="_1064043060">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+, where<span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1108" type="#_x0000_t75" style='width:18pt;height:18.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image015.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method2.gif" v:shapes="_x0000_i1108" width="24" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1108"   
+  DrawAspect="Content" ObjectID="_1064043061">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+ is an extreme vertex. Since <span style="mso-text-raise:   
+-6.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1109" type="#_x0000_t75"   
+ style='width:18.75pt;height:18.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image017.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method3.gif" v:shapes="_x0000_i1109" width="25" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1109"   
+  DrawAspect="Content" ObjectID="_1064043062">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>is a connected planar graph, we can    
+traverse all edges starting from <span style="mso-text-raise:   
+-6.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1110" type="#_x0000_t75"   
+ style='width:33.75pt;height:21pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image007.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method4.gif" v:shapes="_x0000_i1110" width="45" height="28"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1110"   
+  DrawAspect="Content" ObjectID="_1064043063">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>and overlay them on <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1111"   
+ type="#_x0000_t75" style='width:18.75pt;height:18.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image011.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method5.gif" v:shapes="_x0000_i1111" width="25" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1111"   
+  DrawAspect="Content" ObjectID="_1064043064">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>edge by edge. We can imagine that    
+an edge <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1112" type="#_x0000_t75" style='width:33.75pt;height:21pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image007.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method6.gif" v:shapes="_x0000_i1112" width="45" height="28"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1112"   
+  DrawAspect="Content" ObjectID="_1064043065">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+consists of an infinite number of points. As we overlay this edge on <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1113"   
+ type="#_x0000_t75" style='width:18.75pt;height:18.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image011.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method7.gif" v:shapes="_x0000_i1113" width="25" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1113"   
+  DrawAspect="Content" ObjectID="_1064043066">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+, the corresponding positions of these points have three kinds on <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1114"   
+ type="#_x0000_t75" style='width:18.75pt;height:18.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image011.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method8.gif" v:shapes="_x0000_i1114" width="25" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1114"   
+  DrawAspect="Content" ObjectID="_1064043067">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>as illustrated in Figure 4. These    
+three possibilities are:<span style="mso-spacerun: yes">&nbsp;</span></span></p>   
+<p class="MsoBodyTextIndent" style="margin-left:42.0pt;text-align:justify;   
+text-justify:inter-ideograph;text-indent:-18.0pt;line-height:150%;mso-list:   
+l1 level1 lfo2;tab-stops:list 42.0pt"><span lang="EN-US">1.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    
+</span>Some point <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1115" type="#_x0000_t75" style='width:45.75pt;height:18.75pt'   
+ o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image024.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method9.gif" v:shapes="_x0000_i1115" width="61" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1115"   
+  DrawAspect="Content" ObjectID="_1064043068">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>(i.e., <span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1116"   
+ type="#_x0000_t75" style='width:27.75pt;height:15pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image026.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method10.gif" v:shapes="_x0000_i1116" width="37" height="20"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1116"   
+  DrawAspect="Content" ObjectID="_1064043069">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1117" type="#_x0000_t75" style='width:33.75pt;height:21pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image007.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method11.gif" v:shapes="_x0000_i1117" width="45" height="28"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1117"   
+  DrawAspect="Content" ObjectID="_1064043070">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+) falls on a vertex <span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1118" type="#_x0000_t75" style='width:18pt;height:15pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image029.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method12.gif" v:shapes="_x0000_i1118" width="24" height="20"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1118"   
+  DrawAspect="Content" ObjectID="_1064043071">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>of a triangle <span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1119"   
+ type="#_x0000_t75" style='width:17.25pt;height:15pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image031.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method13.gif" v:shapes="_x0000_i1119" width="23" height="20"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1119"   
+  DrawAspect="Content" ObjectID="_1064043072">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1120" type="#_x0000_t75" style='width:27.75pt;height:18.75pt'   
+ o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image033.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method14.gif" v:shapes="_x0000_i1120" width="37" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1120"   
+  DrawAspect="Content" ObjectID="_1064043073">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+.</span></p>   
+<p class="MsoBodyTextIndent" style="margin-left:42.0pt;text-align:justify;   
+text-justify:inter-ideograph;text-indent:-18.0pt;line-height:150%;mso-list:   
+l1 level1 lfo2;tab-stops:list 42.0pt"><span lang="EN-US">2.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    
+</span>Some point <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1121" type="#_x0000_t75" style='width:45.75pt;height:18.75pt'   
+ o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image035.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method15.gif" v:shapes="_x0000_i1121" width="61" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1121"   
+  DrawAspect="Content" ObjectID="_1064043074">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>falls on an edge <span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1122"   
+ type="#_x0000_t75" style='width:18pt;height:15pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image037.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method16.gif" v:shapes="_x0000_i1122" width="24" height="20"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1122"   
+  DrawAspect="Content" ObjectID="_1064043075">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>of a triangle <span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1123"   
+ type="#_x0000_t75" style='width:17.25pt;height:15pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image031.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method17.gif" v:shapes="_x0000_i1123" width="23" height="20"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1123"   
+  DrawAspect="Content" ObjectID="_1064043076">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1124" type="#_x0000_t75" style='width:27.75pt;height:18.75pt'   
+ o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image033.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method18.gif" v:shapes="_x0000_i1124" width="37" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1124"   
+  DrawAspect="Content" ObjectID="_1064043077">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+.</span></p>   
+<p class="MsoBodyTextIndent" style="margin-left:42.0pt;text-align:justify;   
+text-justify:inter-ideograph;text-indent:-18.0pt;line-height:150%;mso-list:   
+l1 level1 lfo2;tab-stops:list 42.0pt"><span lang="EN-US">3.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    
+</span>Some point <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1125" type="#_x0000_t75" style='width:45.75pt;height:18.75pt'   
+ o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image035.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method19.gif" v:shapes="_x0000_i1125" width="61" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1125"   
+  DrawAspect="Content" ObjectID="_1064043078">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>falls on the interior of a triangle    
+<span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1126" type="#_x0000_t75" style='width:17.25pt;height:15pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image031.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method20.gif" v:shapes="_x0000_i1126" width="23" height="20"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1126"   
+  DrawAspect="Content" ObjectID="_1064043079">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span><span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1127"   
+ type="#_x0000_t75" style='width:27.75pt;height:18.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image033.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method21.gif" v:shapes="_x0000_i1127" width="37" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1127"   
+  DrawAspect="Content" ObjectID="_1064043080">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+.</span></p>   
+<p class="MsoBodyTextIndent" align="center" style="text-align:center;line-height:   
+150%"><span lang="EN-US"><!--[if gte vml 1]><v:shape id="_x0000_i1101" type="#_x0000_t75"   
+ style='width:182.25pt;height:51pt'>   
+ <v:imagedata src="Method22.jpg"   
+  o:title="1"/>   
+</v:shape><![endif]-->   
+<img width="243" height="68" src="Method22.jpg" v:shapes="_x0000_i1101"></span></p>   
+<p class="MsoBodyTextIndent" align="center" style="margin-left:0cm;text-align:center;   
+line-height:150%"><span lang="EN-US">Figure 4. There are three kinds of    
+corresponding positions (i.e., red dot) on <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1128" type="#_x0000_t75" style='width:18.75pt;height:18.75pt'   
+ o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image011.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method23.gif" v:shapes="_x0000_i1128" width="25" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1128"   
+  DrawAspect="Content" ObjectID="_1064043081">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+.</span></p>   
+<p class="MsoBodyTextIndent" align="center" style="text-align:center;line-height:   
+150%"><span lang="EN-US">&nbsp;<o:p>   
+</o:p>   
+</span></p>   
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify;   
+text-justify:inter-ideograph;line-height:150%"><span lang="EN-US">When an edge <span style="mso-text-raise:-3.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1129"   
+ type="#_x0000_t75" style='width:18pt;height:17.25pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image046.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method24.gif" v:shapes="_x0000_i1129" width="24" height="23"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1129"   
+  DrawAspect="Content" ObjectID="_1064043082">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>(for simplicity,<span style="mso-text-raise:-3.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1130"   
+ type="#_x0000_t75" style='width:18pt;height:17.25pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image046.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method25.gif" v:shapes="_x0000_i1130" width="24" height="23"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1130"   
+  DrawAspect="Content" ObjectID="_1064043083">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+ is interchanged with <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1131" type="#_x0000_t75" style='width:33.75pt;height:21pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image007.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method26.gif" v:shapes="_x0000_i1131" width="45" height="28"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1131"   
+  DrawAspect="Content" ObjectID="_1064043084">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+) is overlaid on <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1132" type="#_x0000_t75" style='width:18.75pt;height:18.75pt'   
+ o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image011.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method27.gif" v:shapes="_x0000_i1132" width="25" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1132"   
+  DrawAspect="Content" ObjectID="_1064043085">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+, this edge can be split into several line segments<span style="mso-text-raise:-3.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1133"   
+ type="#_x0000_t75" style='width:14.25pt;height:17.25pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image051.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method28.gif" v:shapes="_x0000_i1133" width="19" height="23"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1133"   
+  DrawAspect="Content" ObjectID="_1064043086">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+by a triangle<span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1134" type="#_x0000_t75" style='width:17.25pt;height:15pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image031.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method29.gif" v:shapes="_x0000_i1134" width="23" height="20"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1134"   
+  DrawAspect="Content" ObjectID="_1064043087">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1135" type="#_x0000_t75" style='width:27.75pt;height:18.75pt'   
+ o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image033.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method30.gif" v:shapes="_x0000_i1135" width="37" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1135"   
+  DrawAspect="Content" ObjectID="_1064043088">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+. The relationship between <span style="mso-text-raise:-3.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1136" type="#_x0000_t75" style='width:14.25pt;height:17.25pt'   
+ o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image051.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method31.gif" v:shapes="_x0000_i1136" width="19" height="23"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1136"   
+  DrawAspect="Content" ObjectID="_1064043089">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>and <span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1137"   
+ type="#_x0000_t75" style='width:17.25pt;height:15pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image031.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method32.gif" v:shapes="_x0000_i1137" width="23" height="20"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1137"   
+  DrawAspect="Content" ObjectID="_1064043090">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>can be classified into eighteen    
+kinds of cases (as shown in Figure 5). For example in Figure 6, the edge <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1138"   
+ type="#_x0000_t75" style='width:45pt;height:20.25pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image057.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method33.gif" v:shapes="_x0000_i1138" width="60" height="27"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1138"   
+  DrawAspect="Content" ObjectID="_1064043091">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>could be split into the following    
+cases (i.e., according to Figure 5) 15-2-2-6-9-2-2-3, 14-15-2-6-9-2-2-3, or    
+other sequences. But the former splitting sequence generates the minimum number    
+of new points on <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1139" type="#_x0000_t75" style='width:18.75pt;height:18.75pt'   
+ o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image011.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method34.gif" v:shapes="_x0000_i1139" width="25" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1139"   
+  DrawAspect="Content" ObjectID="_1064043092">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+. We shall call such splitting as the optimal splitting.</span></p>   
+<p class="MsoBodyTextIndent" align="center" style="margin-left:0cm;text-align:center;   
+line-height:150%"><span lang="EN-US"><!--[if gte vml 1]><v:shape id="_x0000_i1027"   
+ type="#_x0000_t75" style='width:415.5pt;height:123.75pt'>   
+ <v:imagedata src="Method35.gif"   
+  o:title="2"/>   
+</v:shape><![endif]-->   
+<img src="Method35.gif" v:shapes="_x0000_i1027" width="554" height="165"></span></p>   
+<p class="MsoBodyTextIndent" style="text-justify: inter-ideograph; line-height: 150%; margin-left: 0cm" align="center"><span lang="EN-US">Figure    
+5. The relationship between a line segment <span style="mso-text-raise:-3.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1028" type="#_x0000_t75" style='width:14.25pt;height:17.25pt'   
+ o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image051.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method36.gif" v:shapes="_x0000_i1028" width="19" height="23"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1028"   
+  DrawAspect="Content" ObjectID="_1064043093">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>and <span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1029"   
+ type="#_x0000_t75" style='width:17.25pt;height:15pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image031.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method37.gif" v:shapes="_x0000_i1029" width="23" height="20"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1029"   
+  DrawAspect="Content" ObjectID="_1064043094">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+can be classified into eighteen kinds of cases. The left-most column is    
+classified based on Figure 4.</span></p>   
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify;   
+text-justify:inter-ideograph;line-height:150%"><span lang="EN-US">&nbsp;<o:p>   
+</o:p>   
+</span></p>   
+<p class="MsoBodyTextIndent" align="center" style="margin-left:0cm;text-align:center;   
+line-height:150%"><span lang="EN-US" style="mso-fareast-font-family:標楷體"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1030" type="#_x0000_t75" style='width:294pt;height:120.75pt'>   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image063.jpg"   
+  o:title="3"/>   
+</v:shape><![endif]-->   
+<img src="Method38.jpg" v:shapes="_x0000_i1030" width="392" height="161"><o:p>   
+</o:p>   
+</span></p>   
+<p class="MsoBodyTextIndent" style="text-justify: inter-ideograph; line-height: 150%; margin-left: 0cm" align="center"><span lang="EN-US" style="mso-fareast-font-family:標楷體">Figure    
+6. (a) The optimal splitting generates nine new points </span><span lang="EN-US">on    
+<span style="mso-text-raise:   
+-6.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1031" type="#_x0000_t75"   
+ style='width:18.75pt;height:18.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image011.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method39.gif" v:shapes="_x0000_i1031" width="25" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1031"   
+  DrawAspect="Content" ObjectID="_1064043096">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+</span><span lang="EN-US" style="mso-fareast-font-family:標楷體">. (b) The    
+non-optimal splitting generates ten new points </span><span lang="EN-US">on <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1032"   
+ type="#_x0000_t75" style='width:18.75pt;height:18.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image011.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method40.gif" v:shapes="_x0000_i1032" width="25" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1032"   
+  DrawAspect="Content" ObjectID="_1064043097">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+</span><span lang="EN-US" style="mso-fareast-font-family:標楷體">. In (a) and    
+(b), the label on each point is made according to Figure 5. <o:p>   
+</o:p>   
+</span></p>   
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify;   
+text-justify:inter-ideograph;line-height:150%"><span lang="EN-US" style="mso-fareast-font-family:標楷體">&nbsp;<o:p>   
+</o:p>   
+</span></p>   
+<p class="MsoBodyTextIndent" style="margin-left:0cm;line-height:150%"><b><span lang="EN-US" style="font-size:14.0pt;mso-bidi-font-size:12.0pt;mso-fareast-font-family:   
+標楷體"><font color="#008000">3.5.2 Structures of Minimal Contour Coverage (SMCC)<o:p>   
+ </font> 
+</o:p> 
+</span></b></p> 
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify; 
+text-justify:inter-ideograph;line-height:150%"><span lang="EN-US">Whichever a  
+new point generated by the optimal splitting can be found with the help of  
+structures of minimal contour coverage (<b><i>SMCC</i></b>) on <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1033" 
+ type="#_x0000_t75" style='width:18.75pt;height:18.75pt' o:ole=""> 
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image011.wmz" 
+  o:title=""/> 
+</v:shape><![endif]--> 
+<img src="Method41.gif" v:shapes="_x0000_i1033" width="25" height="25"></span><!--[if gte mso 9]><xml> 
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1033" 
+  DrawAspect="Content" ObjectID="_1064043098"> 
+ </o:OLEObject> 
+</xml><![endif]--> 
+. Based on the classification in Figure 4, there are three kinds of SMCC for the  
+corresponding position (Figure 7) defined in the following.</span></p> 
+<p class="MsoBodyTextIndent" style="margin-left:18.0pt;text-align:justify; 
+text-justify:inter-ideograph;text-indent:-18.0pt;line-height:150%;mso-list: 
+l2 level1 lfo19;tab-stops:list 18.0pt"><span lang="EN-US">1.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+</span>For some point <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1034" type="#_x0000_t75" style='width:45.75pt;height:18.75pt'   
+ o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image068.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method42.gif" v:shapes="_x0000_i1034" width="61" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1034"   
+  DrawAspect="Content" ObjectID="_1064043099">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>falls on <span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1035"   
+ type="#_x0000_t75" style='width:18pt;height:15pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image029.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method43.gif" v:shapes="_x0000_i1035" width="24" height="20"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1035"   
+  DrawAspect="Content" ObjectID="_1064043100">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+, <span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1036" type="#_x0000_t75" style='width:18pt;height:15pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image071.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method44.gif" v:shapes="_x0000_i1036" width="24" height="20"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1036"   
+  DrawAspect="Content" ObjectID="_1064043101">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+’s SMCC is <span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1037" type="#_x0000_t75" style='width:18pt;height:15pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image029.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method45.gif" v:shapes="_x0000_i1037" width="24" height="20"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1037"   
+  DrawAspect="Content" ObjectID="_1064043102">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+’s 1-ring structure.</span></p>   
+<p class="MsoBodyTextIndent" style="margin-left:18.0pt;text-align:justify;   
+text-justify:inter-ideograph;text-indent:-18.0pt;line-height:150%;mso-list:   
+l2 level1 lfo19;tab-stops:list 18.0pt"><span lang="EN-US">2.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    
+</span>For some point <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1038" type="#_x0000_t75" style='width:45.75pt;height:18.75pt'   
+ o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image035.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method46.gif" v:shapes="_x0000_i1038" width="61" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1038"   
+  DrawAspect="Content" ObjectID="_1064043103">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>falls on <span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1039"   
+ type="#_x0000_t75" style='width:18pt;height:15pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image037.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method47.gif" v:shapes="_x0000_i1039" width="24" height="20"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1039"   
+  DrawAspect="Content" ObjectID="_1064043104">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+, its SMCC is a 4-sided polygon containing <span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1040"   
+ type="#_x0000_t75" style='width:18pt;height:15pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image037.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method48.gif" v:shapes="_x0000_i1040" width="24" height="20"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1040"   
+  DrawAspect="Content" ObjectID="_1064043105">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+.</span></p>   
+<p class="MsoBodyTextIndent" style="margin-left:18.0pt;text-align:justify;   
+text-justify:inter-ideograph;text-indent:-18.0pt;line-height:150%;mso-list:   
+l16 level1 lfo7;tab-stops:list 18.0pt"><span lang="EN-US">1.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    
+</span>For some point <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1041" type="#_x0000_t75" style='width:45.75pt;height:18.75pt'   
+ o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image035.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method49.gif" v:shapes="_x0000_i1041" width="61" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1041"   
+  DrawAspect="Content" ObjectID="_1064043106">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>falls on <span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1042"   
+ type="#_x0000_t75" style='width:17.25pt;height:15pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image031.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method50.gif" v:shapes="_x0000_i1042" width="23" height="20"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1042"   
+  DrawAspect="Content" ObjectID="_1064043107">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+, its SMCC is a triangle <span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1043" type="#_x0000_t75" style='width:17.25pt;height:15pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image031.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method51.gif" v:shapes="_x0000_i1043" width="23" height="20"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1043"   
+  DrawAspect="Content" ObjectID="_1064043108">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+.</span></p>   
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify;   
+text-justify:inter-ideograph;line-height:150%"><span lang="EN-US">In above, <span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1044"   
+ type="#_x0000_t75" style='width:18pt;height:15pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image029.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method52.gif" v:shapes="_x0000_i1044" width="24" height="20"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1044"   
+  DrawAspect="Content" ObjectID="_1064043109">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+, <span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1045" type="#_x0000_t75" style='width:18pt;height:15pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image037.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method53.gif" v:shapes="_x0000_i1045" width="24" height="20"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1045"   
+  DrawAspect="Content" ObjectID="_1064043110">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>and <span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1046"   
+ type="#_x0000_t75" style='width:17.25pt;height:15pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image031.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method54.gif" v:shapes="_x0000_i1046" width="23" height="20"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1046"   
+  DrawAspect="Content" ObjectID="_1064043111">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>are all defined in Figure 4.</span></p>   
+<p class="MsoBodyTextIndent" align="center" style="margin-left:0cm;text-align:center;   
+line-height:150%"><span lang="EN-US"><!--[if gte vml 1]><v:shape id="_x0000_i1047"   
+ type="#_x0000_t75" style='width:234.75pt;height:63.75pt'>   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image083.jpg"   
+  o:title="4"/>   
+</v:shape><![endif]-->   
+<img src="Method55.jpg" v:shapes="_x0000_i1047" width="313" height="85"></span></p>   
+<p class="MsoBodyTextIndent" style="text-justify: inter-ideograph; line-height: 150%; margin-left: 0cm" align="center"><span lang="EN-US">Figure    
+7. There are three kinds of SMCC for <span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1048" type="#_x0000_t75" style='width:18pt;height:15pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image085.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method56.gif" v:shapes="_x0000_i1048" width="24" height="20"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1048"   
+  DrawAspect="Content" ObjectID="_1064043112">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>on <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1049"   
+ type="#_x0000_t75" style='width:18.75pt;height:18.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image011.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method57.gif" v:shapes="_x0000_i1049" width="25" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1049"   
+  DrawAspect="Content" ObjectID="_1064043113">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+: (1) 1-ring, (2) 4-sided polygon and (3) a triangle.</span></p>   
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify;   
+text-justify:inter-ideograph;line-height:150%"><span lang="EN-US">&nbsp;<o:p>   
+</o:p>   
+</span></p>   
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify;   
+text-justify:inter-ideograph;line-height:150%"><span lang="EN-US">Assume the    
+starting point <span style="mso-text-raise:-3.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1050" type="#_x0000_t75" style='width:11.25pt;height:14.25pt'   
+ o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image088.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method58.gif" v:shapes="_x0000_i1050" width="15" height="19"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1050"   
+  DrawAspect="Content" ObjectID="_1064043114">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>of an edge <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1051"   
+ type="#_x0000_t75" style='width:45pt;height:20.25pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image090.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method59.gif" v:shapes="_x0000_i1051" width="60" height="27"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1051"   
+  DrawAspect="Content" ObjectID="_1064043115">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>has established its SMCC on <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1052"   
+ type="#_x0000_t75" style='width:18.75pt;height:18.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image011.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method60.gif" v:shapes="_x0000_i1052" width="25" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1052"   
+  DrawAspect="Content" ObjectID="_1064043116">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+. If <span style="mso-text-raise:-3.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1053" type="#_x0000_t75" style='width:18pt;height:17.25pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image093.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method61.gif" v:shapes="_x0000_i1053" width="24" height="23"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1053"   
+  DrawAspect="Content" ObjectID="_1064043117">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>could generate new intersection    
+points with some edges <span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1054" type="#_x0000_t75" style='width:18pt;height:15pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image037.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method62.gif" v:shapes="_x0000_i1054" width="24" height="20"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1054"   
+  DrawAspect="Content" ObjectID="_1064043118">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>outside <i>S</i>’s SMCC, <span style="mso-text-raise:-3.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1055"   
+ type="#_x0000_t75" style='width:18pt;height:17.25pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image093.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method63.gif" v:shapes="_x0000_i1055" width="24" height="23"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1055"   
+  DrawAspect="Content" ObjectID="_1064043119">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>must generate a new intersection    
+point with <i>S</i>’s SMCC. To the contrary, if <span style="mso-text-raise:-3.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1056"   
+ type="#_x0000_t75" style='width:18pt;height:17.25pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image093.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method64.gif" v:shapes="_x0000_i1056" width="24" height="23"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1056"   
+  DrawAspect="Content" ObjectID="_1064043120">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>does not intersect with <i>S</i>’s    
+SMCC, it also will not intersect with other edges <span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1057"   
+ type="#_x0000_t75" style='width:18pt;height:15pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image037.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method65.gif" v:shapes="_x0000_i1057" width="24" height="20"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1057"   
+  DrawAspect="Content" ObjectID="_1064043121">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>outside <i>S</i>’s SMCC (as shown    
+in Figure 8). So the merging can be done locally with <i>S</i>’s SMCC.</span></p>   
+<p class="MsoBodyTextIndent" align="center" style="margin-left:0cm;text-align:center;   
+line-height:150%"><span lang="EN-US"><!--[if gte vml 1]><v:shape id="_x0000_i1058"   
+ type="#_x0000_t75" style='width:179.25pt;height:66pt'>   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image099.jpg"   
+  o:title="5"/>   
+</v:shape><![endif]-->   
+<img src="Method66.jpg" v:shapes="_x0000_i1058" width="239" height="88"></span></p>   
+<p class="MsoBodyTextIndent" align="center" style="margin-left:0cm;text-align:center;   
+line-height:150%"><span lang="EN-US">Figure 8. The merging can be locally done    
+with <i>S</i>’s SMCC.</span></p>   
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify;   
+text-justify:inter-ideograph;line-height:150%"><span lang="EN-US">The local    
+merging can be further classified into two kinds of the merging conditions. One    
+is called area condition at which the local case <span style="mso-text-raise:   
+-3.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1059" type="#_x0000_t75"   
+ style='width:14.25pt;height:17.25pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image101.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method67.gif" v:shapes="_x0000_i1059" width="19" height="23"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1059"   
+  DrawAspect="Content" ObjectID="_1064043122">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>is not co-incident with any    
+imaginary line that links <i>s </i>with the contour vertex of SMCC. If <span style="mso-text-raise:-3.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1060"   
+ type="#_x0000_t75" style='width:14.25pt;height:17.25pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image101.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method68.gif" v:shapes="_x0000_i1060" width="19" height="23"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1060"   
+  DrawAspect="Content" ObjectID="_1064043123">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>is co-incident with any imaginary    
+line, this is called line condition (as shown in Figure 9). The determination of    
+the local merging condition is evaluated by the following:</span></p>   
+<p class="MsoNormal" style="margin-left:1.0gd;line-height:150%"><i><span lang="EN-US" style="font-family:標楷體;mso-bidi-font-family:Arial">M</span></i><span lang="EN-US" style="font-family:標楷體;mso-bidi-font-family:Arial">    
+= <span style="mso-text-raise:-3.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1061"   
+ type="#_x0000_t75" style='width:15pt;height:21.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image104.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method69.gif" v:shapes="_x0000_i1061" width="20" height="29"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1061"   
+  DrawAspect="Content" ObjectID="_1064043124">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-text-raise:-3.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1062" type="#_x0000_t75" style='width:12.75pt;height:14.25pt'   
+ o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image106.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method70.gif" v:shapes="_x0000_i1062" width="17" height="19"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1062"   
+  DrawAspect="Content" ObjectID="_1064043125">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-text-raise:-3.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1063" type="#_x0000_t75" style='width:15pt;height:21.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image108.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method71.gif" v:shapes="_x0000_i1063" width="20" height="29"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1063"   
+  DrawAspect="Content" ObjectID="_1064043126">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+, </span><i><span lang="EN-US" style="mso-fareast-font-family:   
+標楷體">N</span></i><span lang="EN-US" style="mso-fareast-font-family:標楷體">    
+= </span><span lang="EN-US" style="font-family:標楷體;mso-bidi-font-family:Arial"><span style="mso-text-raise:-3.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1064"   
+ type="#_x0000_t75" style='width:15pt;height:21.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image110.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method72.gif" v:shapes="_x0000_i1064" width="20" height="29"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1064"   
+  DrawAspect="Content" ObjectID="_1064043127">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-text-raise:-3.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1065" type="#_x0000_t75" style='width:12.75pt;height:14.25pt'   
+ o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image112.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method73.gif" v:shapes="_x0000_i1065" width="17" height="19"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1065"   
+  DrawAspect="Content" ObjectID="_1064043128">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-text-raise:-3.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1066" type="#_x0000_t75" style='width:15pt;height:21.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image114.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method74.gif" v:shapes="_x0000_i1066" width="20" height="29"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1066"   
+  DrawAspect="Content" ObjectID="_1064043129">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+, where </span><span lang="EN-US" style="mso-fareast-font-family:   
+標楷體"><span style="mso-text-raise:-3.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1067"   
+ type="#_x0000_t75" style='width:15pt;height:21.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image104.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method75.gif" v:shapes="_x0000_i1067" width="20" height="29"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1067"   
+  DrawAspect="Content" ObjectID="_1064043130">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+, </span><span lang="EN-US" style="font-family:標楷體;mso-bidi-font-family:   
+Arial"><span style="mso-text-raise:-3.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1068"   
+ type="#_x0000_t75" style='width:15pt;height:21.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image117.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method76.gif" v:shapes="_x0000_i1068" width="20" height="29"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1068"   
+  DrawAspect="Content" ObjectID="_1064043131">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+</span><span lang="EN-US" style="mso-fareast-font-family:標楷體"><span style="mso-spacerun: yes">&nbsp;</span>and    
+</span><span lang="EN-US" style="font-family:   
+標楷體;mso-bidi-font-family:Arial"><span style="mso-text-raise:-3.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1069" type="#_x0000_t75" style='width:15pt;height:21.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image119.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method77.gif" v:shapes="_x0000_i1069" width="20" height="29"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1069"   
+  DrawAspect="Content" ObjectID="_1064043132">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+</span><span lang="EN-US" style="mso-fareast-font-family:標楷體"><span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1070"   
+ type="#_x0000_t75" style='width:26.25pt;height:15pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image121.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method78.gif" v:shapes="_x0000_i1070" width="35" height="20"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1070"   
+  DrawAspect="Content" ObjectID="_1064043133">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+. <o:p>   
+</o:p>   
+</span></p>   
+<p class="MsoNormal" style="margin-left:1.0gd;line-height:150%"><span lang="EN-US" style="font-family:標楷體;mso-bidi-font-family:Arial"><span style="mso-text-raise:   
+-33.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1071" type="#_x0000_t75"   
+ style='width:330.75pt;height:1in' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image123.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method79.gif" v:shapes="_x0000_i1071" width="441" height="96"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1071"   
+  DrawAspect="Content" ObjectID="_1064043134">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;&nbsp; </span>(9)<o:p>   
+</o:p>   
+</span></p>   
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify;   
+text-justify:inter-ideograph;line-height:150%"><span lang="EN-US">&nbsp;<o:p>   
+</o:p>   
+</span></p>   
+<p class="MsoBodyTextIndent" align="center" style="margin-left:0cm;text-align:center;   
+line-height:150%"><span lang="EN-US"><!--[if gte vml 1]><v:shape id="_x0000_i1072"   
+ type="#_x0000_t75" style='width:4in;height:153.75pt'>   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image125.jpg"   
+  o:title="6"/>   
+</v:shape><![endif]-->   
+<img src="Method80.jpg" v:shapes="_x0000_i1072" width="384" height="205"></span></p>   
+<p class="MsoBodyTextIndent" align="center" style="margin-left:0cm;text-align:center;   
+line-height:150%"><span lang="EN-US">Figure 9. There are two kinds of the local    
+merging conditions.</span></p>   
+<p class="MsoBodyTextIndent" style="text-align: justify; text-justify: inter-ideograph; line-height: 200%; margin-left: 0cm"><span lang="EN-US">Based on the    
+above classifications, we can use different formulas (i.e., equation (10) and    
+(11)) to determine whether <span style="mso-text-raise:-3.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1073" type="#_x0000_t75" style='width:14.25pt;height:17.25pt'   
+ o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image051.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method81.gif" v:shapes="_x0000_i1073" width="19" height="23"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1073"   
+  DrawAspect="Content" ObjectID="_1064043135">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>intersects with <i>S</i>’s SMCC    
+or not.<span style="mso-spacerun: yes">&nbsp; </span>The results of equation    
+(10) and (11) lead to different conditions as showed in Figure 10.</span></p>   
+<p class="MsoNormal" style="line-height:150%"><span lang="EN-US" style="mso-fareast-font-family:   
+標楷體">1. Area Condition:<o:p>   
+</o:p>   
+</span></p>   
+<p class="MsoNormal" style="text-indent:36.0pt;mso-char-indent-count:3.0;   
+mso-char-indent-size:12.0pt;line-height:150%"><span lang="EN-US" style="mso-fareast-font-family:標楷體">Let    
+<span style="mso-text-raise:-3.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1074" type="#_x0000_t75" style='width:66pt;height:21.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image128.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method82.gif" v:shapes="_x0000_i1074" width="88" height="29"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1074"   
+  DrawAspect="Content" ObjectID="_1064043136">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+, and suppose <i>V</i> on the <span style="mso-text-raise:   
+-3.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1075" type="#_x0000_t75"   
+ style='width:15.75pt;height:17.25pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image130.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method83.gif" v:shapes="_x0000_i1075" width="21" height="23"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1075"   
+  DrawAspect="Content" ObjectID="_1064043137">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+, <span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1076" type="#_x0000_t75" style='width:11.25pt;height:9.75pt'   
+ o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image132.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method84.gif" v:shapes="_x0000_i1076" width="15" height="13"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1076"   
+  DrawAspect="Content" ObjectID="_1064043138">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span><span style="mso-text-raise:-3.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1077"   
+ type="#_x0000_t75" style='width:63.75pt;height:21.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image134.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method85.gif" v:shapes="_x0000_i1077" width="85" height="29"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1077"   
+  DrawAspect="Content" ObjectID="_1064043139">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<o:p>   
+</o:p>   
+</span></p>   
+<p class="MsoNormal" style="text-align:justify;text-justify:inter-ideograph;   
+text-indent:36.0pt;mso-char-indent-count:3.0;mso-char-indent-size:12.0pt;   
+line-height:150%"><span lang="EN-US" style="mso-fareast-font-family:標楷體">Then    
+<span style="mso-text-raise:-3.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1078"   
+ type="#_x0000_t75" style='width:153.75pt;height:21.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image136.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method86.gif" v:shapes="_x0000_i1078" width="205" height="29"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1078"   
+  DrawAspect="Content" ObjectID="_1064043140">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<o:p>   
+</o:p>   
+</span></p>   
+<p class="MsoNormal" style="margin-left:12.0pt;text-align:justify;text-justify:   
+inter-ideograph;text-indent:24.0pt;line-height:150%"><span lang="EN-US" style="mso-fareast-font-family:標楷體"><span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1079" type="#_x0000_t75" style='width:11.25pt;height:9.75pt'   
+ o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image132.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method87.gif" v:shapes="_x0000_i1079" width="15" height="13"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1079"   
+  DrawAspect="Content" ObjectID="_1064043141">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span><span style="mso-text-raise:-5.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1080"   
+ type="#_x0000_t75" style='width:165.75pt;height:24pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image139.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method88.gif" v:shapes="_x0000_i1080" width="221" height="32"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1080"   
+  DrawAspect="Content" ObjectID="_1064043142">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<o:p>   
+</o:p>   
+</span></p>   
+<p class="MsoNormal" style="margin-left:12.0pt;text-indent:24.0pt;line-height:   
+150%"><span lang="EN-US" style="mso-fareast-font-family:標楷體"><span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1081"   
+ type="#_x0000_t75" style='width:11.25pt;height:9.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image141.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method89.gif" v:shapes="_x0000_i1081" width="15" height="13"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1081"   
+  DrawAspect="Content" ObjectID="_1064043143">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>Let <span style="mso-text-raise:-5.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1082"   
+ type="#_x0000_t75" style='width:69.75pt;height:24pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image143.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method90.gif" v:shapes="_x0000_i1082" width="93" height="32"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1082"   
+  DrawAspect="Content" ObjectID="_1064043144">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-tab-count:1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="mso-spacerun: yes">&nbsp;&nbsp;</span><span style="mso-text-raise:-5.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1083" type="#_x0000_t75" style='width:68.25pt;height:24pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image145.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method91.gif" v:shapes="_x0000_i1083" width="91" height="32"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1083"   
+  DrawAspect="Content" ObjectID="_1064043145">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-tab-count:1">&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="mso-text-raise:-5.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1084"   
+ type="#_x0000_t75" style='width:59.25pt;height:17.25pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image147.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method92.gif" v:shapes="_x0000_i1084" width="79" height="23"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1084"   
+  DrawAspect="Content" ObjectID="_1064043146">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-tab-count:1">&nbsp;&nbsp;&nbsp; </span><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;</span>(10)<o:p>   
+</o:p>   
+</span></p>   
+<p class="MsoNormal" style="line-height:150%"><span lang="EN-US" style="mso-fareast-font-family:   
+標楷體">2. Line Condition: (assume co-incident with <span style="mso-text-raise:   
+-3.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1085" type="#_x0000_t75"   
+ style='width:15pt;height:17.25pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image149.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method93.gif" v:shapes="_x0000_i1085" width="20" height="23"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1085"   
+  DrawAspect="Content" ObjectID="_1064043147">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+)<o:p>   
+</o:p>   
+</span></p>   
+<p class="MsoNormal" style="margin-left:24.0pt;text-indent:24.0pt;line-height:   
+150%"><span lang="EN-US" style="mso-fareast-font-family:標楷體"><span style="mso-text-raise:-14.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1086"   
+ type="#_x0000_t75" style='width:45pt;height:33.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image151.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method94.gif" v:shapes="_x0000_i1086" width="60" height="45"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1086"   
+  DrawAspect="Content" ObjectID="_1064043148">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="mso-text-raise:-14.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1087"   
+ type="#_x0000_t75" style='width:48pt;height:33.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image153.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method95.gif" v:shapes="_x0000_i1087" width="64" height="45"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1087"   
+  DrawAspect="Content" ObjectID="_1064043149">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="mso-text-raise:-3.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1088"   
+ type="#_x0000_t75" style='width:51.75pt;height:14.25pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image155.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method96.gif" v:shapes="_x0000_i1088" width="69" height="19"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1088"   
+  DrawAspect="Content" ObjectID="_1064043150">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;&nbsp;</span><span style="mso-tab-count:2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    
+</span><span style="mso-spacerun:   
+yes">&nbsp;&nbsp;&nbsp;</span>(11)<o:p>   
+</o:p>   
+</span></p>   
+<p class="MsoNormal" align="center" style="text-align:center;line-height:150%"><span lang="EN-US"><!--[if gte vml 1]><v:shape id="_x0000_i1089" type="#_x0000_t75"   
+ style='width:295.5pt;height:156pt'>   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image157.jpg"   
+  o:title="7"/>   
+</v:shape><![endif]-->   
+<img src="Method97.jpg" v:shapes="_x0000_i1089" width="394" height="208"></span></p>   
+<p class="MsoNormal" align="center" style="text-align:center;line-height:150%"><span lang="EN-US" style="mso-fareast-font-family:標楷體">(a)    
+The results of the equation (10) and (11).<o:p>   
+</o:p>   
+</span></p>   
+<p class="MsoBodyTextIndent" style="text-justify: inter-ideograph; line-height: 150%; margin-left: 0cm" align="center"><span lang="EN-US"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1090" type="#_x0000_t75" style='width:386.25pt;height:153pt'>   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image159.jpg"   
+  o:title="8"/>   
+</v:shape><![endif]-->   
+<img src="Method98.jpg" v:shapes="_x0000_i1090" width="515" height="204"></span></p>   
+<p class="MsoBodyTextIndent" align="center" style="margin-left:0cm;text-align:center;   
+line-height:150%"><span lang="EN-US">(b) Local merging condition table.</span></p>   
+<p class="MsoBodyTextIndent" align="center" style="margin-left:0cm;text-align:center;   
+line-height:150%"><span lang="EN-US">Figure 10. Classifications of local merging    
+conditions</span></p>   
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify;   
+text-justify:inter-ideograph;line-height:150%"><span lang="EN-US">Based on the    
+analysis of Figure 10 (b), we can replace Figure 5 with Figure 10 (b). Figure 10    
+(b) can provide us a lookup table to efficiently implement our merging    
+algorithm.</span></p>   
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify;   
+text-justify:inter-ideograph;line-height:150%"><span lang="EN-US">&nbsp;<o:p>   
+</o:p>   
+</span></p>   
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify;   
+text-justify:inter-ideograph;line-height:150%"><span lang="EN-US">Our merging    
+algorithm needs to establish the SMCC structure prior to proceeding the local    
+merging. In Figure 7, we have demonstrated how to find a SMCC structure. In our    
+design, once a new intersection occurs, we will establish its SMCC immediately    
+for further potential merging. For example, in Figure 11, an edge <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1091"   
+ type="#_x0000_t75" style='width:47.25pt;height:20.25pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image161.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method99.gif" v:shapes="_x0000_i1091" width="63" height="27"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1091"   
+  DrawAspect="Content" ObjectID="_1064043152">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>and <i>A</i>’s SMCC has been    
+created using Figure 7. Using Figure 10 (b), we find <span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1092"   
+ type="#_x0000_t75" style='width:20.25pt;height:15.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image163.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method2.gif" v:shapes="_x0000_i1092" width="27" height="21"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1092"   
+  DrawAspect="Content" ObjectID="_1064043153">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>intersects with <i>A</i>’s SMCC    
+at <i>C</i>. Next, we create <i>C</i>’s SMCC using Figure 7 again. Again, with    
+the help of Figure 10 (b), the edge <span style="mso-text-raise:-3.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1093" type="#_x0000_t75" style='width:18.75pt;height:17.25pt'   
+ o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image165.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method2.gif" v:shapes="_x0000_i1093" width="25" height="23"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1093"   
+  DrawAspect="Content" ObjectID="_1064043154">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>intersects with <i>C</i>’s SMCC    
+at <i>D</i>. In this manner, we repeat the above steps until we reach at <i>B</i>.    
+Of course, we need to create <i>B</i>’s SMCC, since <i>B</i> could be the    
+starting point of the other edge (i.e., not yet overlaid) from<span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1094"   
+ type="#_x0000_t75" style='width:18.75pt;height:18.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image167.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method3.gif" v:shapes="_x0000_i1094" width="25" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1094"   
+  DrawAspect="Content" ObjectID="_1064043155">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+. Finally, we recall in Section 3.5.1 that we start the local merging from an    
+extreme vertex. The SMCC of an extreme vertex is its 1-ring structure. Given two    
+embeddings <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1095" type="#_x0000_t75" style='width:50.25pt;height:18.75pt'   
+ o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image001.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method4.gif" v:shapes="_x0000_i1095" width="67" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1095"   
+  DrawAspect="Content" ObjectID="_1064043156">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>in Figure 12, we show a complete    
+sequence of overlaying <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1096" type="#_x0000_t75" style='width:18.75pt;height:18.75pt'   
+ o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image017.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method5.gif" v:shapes="_x0000_i1096" width="25" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1096"   
+  DrawAspect="Content" ObjectID="_1064043157">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>on <span style="mso-text-raise:-6.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1097"   
+ type="#_x0000_t75" style='width:18.75pt;height:18.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image171.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method6.gif" v:shapes="_x0000_i1097" width="25" height="25"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1097"   
+  DrawAspect="Content" ObjectID="_1064043158">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>by the proposed method.</span></p>   
+<p class="MsoBodyTextIndent" align="center" style="margin-left:0cm;text-align:center;   
+line-height:150%"><span lang="EN-US"><!--[if gte vml 1]><v:shape id="_x0000_i1098"   
+ type="#_x0000_t75" style='width:149.25pt;height:66.75pt'>   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image173.jpg"   
+  o:title="9"/>   
+</v:shape><![endif]-->   
+<img src="Method7.jpg" v:shapes="_x0000_i1098" width="199" height="89"></span></p>   
+<p class="MsoBodyTextIndent" align="center" style="margin-left:0cm;text-align:center;   
+line-height:150%"><span lang="EN-US">Figure 11. The merging of <span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1099"   
+ type="#_x0000_t75" style='width:20.25pt;height:15.75pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image163.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method8.gif" v:shapes="_x0000_i1099" width="27" height="21"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1099"   
+  DrawAspect="Content" ObjectID="_1064043159">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+can be completed step by step.</span></p>   
+<p class="MsoBodyTextIndent" align="center" style="margin-left:0cm;text-align:center;   
+line-height:150%"><span lang="EN-US"><!--[if gte vml 1]><v:shape id="_x0000_i1100"   
+ type="#_x0000_t75" style='width:296.25pt;height:180.75pt'>   
+ <v:imagedata src="Method9.jpg"   
+  o:title="5-38"/>   
+</v:shape><![endif]-->   
+<img width="395" height="241" src="Method9.jpg" v:shapes="_x0000_i1100"></span></p>   
+<p class="MsoBodyTextIndent" align="center" style="margin-left:0cm;text-align:center;   
+line-height:150%"><span lang="EN-US">Figure 12. An example of merging is    
+completed step by step by our algorithm.</span></p>   
+<p class="MsoBodyTextIndent" align="left" style="line-height: 150%; margin-left: 0cm"><span lang="EN-US">&nbsp;<o:p>   
+</o:p>   
+</span></p>   
+<p class="MsoBodyTextIndent" style="margin-left:0cm;line-height:150%"><b><span lang="EN-US" style="font-size:14.0pt;mso-bidi-font-size:12.0pt"><font color="#008000">3.6    
+Re-triangulate the Merged Embeddings</font></span></b><span lang="EN-US" style="font-size:14.0pt;   
+mso-bidi-font-size:12.0pt"><font color="#008000"><o:p> 
+ </font> 
+</o:p> 
+</span></p> 
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify; 
+text-justify:inter-ideograph;line-height:150%"><span lang="EN-US">Once the    
+merging is completed, we produce a non-triangulated planar graph called <span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shapetype id="_x0000_t75"   
+ coordsize="21600,21600" o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe"   
+ filled="f" stroked="f">   
+ <v:stroke joinstyle="miter"/>   
+ <v:formulas>   
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>   
+  <v:f eqn="sum @0 1 0"/>   
+  <v:f eqn="sum 0 0 @1"/>   
+  <v:f eqn="prod @2 1 2"/>   
+  <v:f eqn="prod @3 21600 pixelWidth"/>   
+  <v:f eqn="prod @3 21600 pixelHeight"/>   
+  <v:f eqn="sum @0 0 1"/>   
+  <v:f eqn="prod @6 1 2"/>   
+  <v:f eqn="prod @7 21600 pixelWidth"/>   
+  <v:f eqn="sum @8 21600 0"/>   
+  <v:f eqn="prod @7 21600 pixelHeight"/>   
+  <v:f eqn="sum @10 21600 0"/>   
+ </v:formulas>   
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>   
+ <o:lock v:ext="edit" aspectratio="t"/>   
+</v:shapetype><v:shape id="_x0000_i1025" type="#_x0000_t75" style='width:21pt;   
+ height:15pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image001.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method10.gif" v:shapes="_x0000_i1025" width="28" height="20"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1025"   
+  DrawAspect="Content" ObjectID="_1064043307">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+. In order to re-triangulate<span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1026" type="#_x0000_t75" style='width:21pt;height:15pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image001.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method11.gif" v:shapes="_x0000_i1026" width="28" height="20"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1026"   
+  DrawAspect="Content" ObjectID="_1064043308">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+, we need to insert additional edges to re-triangulate <span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1027"   
+ type="#_x0000_t75" style='width:21pt;height:15pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image001.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method12.gif" v:shapes="_x0000_i1027" width="28" height="20"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1027"   
+  DrawAspect="Content" ObjectID="_1064043309">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+. For simplicity, our approach is very straightforward and is described as    
+follows. For each point <span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1028" type="#_x0000_t75" style='width:20.25pt;height:15pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image005.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method13.gif" v:shapes="_x0000_i1028" width="27" height="20"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1028"   
+  DrawAspect="Content" ObjectID="_1064043310">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>on <span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1029"   
+ type="#_x0000_t75" style='width:21pt;height:15pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image001.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method14.gif" v:shapes="_x0000_i1029" width="28" height="20"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1029"   
+  DrawAspect="Content" ObjectID="_1064043311">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+, the algorithm must connect the neighboring points of <span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1030"   
+ type="#_x0000_t75" style='width:20.25pt;height:15pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image005.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method15.gif" v:shapes="_x0000_i1030" width="27" height="20"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1030"   
+  DrawAspect="Content" ObjectID="_1064043312">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>to establish its 1-ring cyclic    
+structure. Our design principle (as shown in Figure 13) is that the inserted    
+edge (i.e., red line in Figure 13) connecting the neighboring points is not    
+allowed to generate any new intersection point with other existing edges (i.e.,    
+green lines). It is very easy to check if an inserted edge intersects with other    
+edges or not. We can easily adapt the equation (10) for this purpose.</span></p>   
+<p class="MsoBodyTextIndent" align="center" style="margin-left:0cm;text-align:center;   
+text-indent:24.0pt;line-height:150%"><span lang="EN-US"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1031" type="#_x0000_t75" style='width:291pt;height:93.75pt'>   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image009.jpg"   
+  o:title="11"/>   
+</v:shape><![endif]-->   
+<img src="Method16.jpg" v:shapes="_x0000_i1031" width="388" height="125"></span></p>   
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify;   
+text-justify:inter-ideograph;line-height:150%"><span lang="EN-US">Figure 13. (a)    
+The inserted <span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape   
+ id="_x0000_i1032" type="#_x0000_t75" style='width:20.25pt;height:15.75pt'   
+ o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image011.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method17.gif" v:shapes="_x0000_i1032" width="27" height="21"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1032"   
+  DrawAspect="Content" ObjectID="_1064043313">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+<span style="mso-spacerun: yes">&nbsp;</span>is not legal and (b) <span style="mso-text-raise:-2.0pt"><!--[if gte vml 1]><v:shape id="_x0000_i1033"   
+ type="#_x0000_t75" style='width:20.25pt;height:15pt' o:ole="">   
+ <v:imagedata src="file:///C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/msoclip1/01/clip_image005.wmz"   
+  o:title=""/>   
+</v:shape><![endif]-->   
+<img src="Method18.gif" v:shapes="_x0000_i1033" width="27" height="20"></span><!--[if gte mso 9]><xml>   
+ <o:OLEObject Type="Embed" ProgID="Equation.3" ShapeID="_x0000_i1033"   
+  DrawAspect="Content" ObjectID="_1064043314">   
+ </o:OLEObject>   
+</xml><![endif]-->   
+’s 1-ring cyclic structure is established by inserting several legal edges.</span></p>   
+<p class="MsoBodyTextIndent" style="margin-left:18.0pt;text-indent:-18.0pt;   
+line-height:150%;mso-list:l16 level2 lfo7;tab-stops:list 18.0pt"><b><span lang="EN-US" style="font-size:14.0pt;mso-bidi-font-size:12.0pt"><font color="#008000">3.7<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;  
+</span>Reconstructing the Source Models and Interpolation<o:p>   
+ </font> 
+</o:p> 
+</span></b></p> 
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify; 
+text-justify:inter-ideograph;line-height:150%"><span lang="EN-US">Once we finish  
+the preceding steps, we have established a complete correspondence between two  
+models. Our merging algorithm produces new points in 2D due to intersections.  
+For these new points, we need to find its corresponding 3D points in both  
+models. We first compute the barycentric representation of a new point in the  
+basis of three old points in 2D. Then, the barycentric representation is used to  
+interpolate positions of these three old points in 3D. These old points are  
+referred to the original vertices on the input models. In this manner we find 3D  
+position of a new point. Similarly, for a new point, we can interpolate its  
+other attributes such as color and texture coordinates if required.</span><span lang="EN-US"><o:p> 
+</o:p> 
+</span></p> 
+<p class="MsoBodyTextIndent" style="margin-left:0cm;text-align:justify; 
+text-justify:inter-ideograph;line-height:150%"><span lang="EN-US">Once the above  
+step is finished, the morphing sequence can be easily generated by linearly  
+moving each vertex from its position in model <i>A</i> to the corresponding  
+position in model <i>B</i> in term of time <i>t</i>. Other authors mentioned  
+this kind of linear interpolation can produces satisfying results in most cases.  
+However, in some special case, the self-intersections can occur. Gregory et al.  
+[3] propose the user-specified morphing trajectory by the cubic spline curves  
+for an alternative to linear interpolation. This simple alternative can be  
+included in near future.</span></p> 
+ 
+</body> 
+ 
+</html> 
